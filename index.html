@@ -29,38 +29,55 @@
             </nav>
         </header>
         <div id="menu">
-            <div id="folder-title">
+            <div id="folder-title" class="menu-tab">
                 <i class="fas fa-folder"></i>
                 <a class="menu-title">Folders</a>
             </div>
-            <div id="today-title">
+            <div id="today-title" class="menu-tab">
                 <i class="fas fa-calendar-day"></i>
                 <a class="menu-title">Today</a>
             </div>
-            <div id="this-week-title">
+            <div id="this-week-title" class="menu-tab">
                 <i class="fas fa-calendar-week"></i>
                 <a class="menu-title">This Week</a>
             </div>
-            <div id="all-tasks-title">
+            <div id="all-tasks-title" class="menu-tab">
                 <i class="fas fa-tasks"></i>
                 <a class="menu-title">All Tasks</a>
             </div>
         </div>
+        <div class="folders-dir-heading">
+            <h1 class="folders-title">Folders</h1>
+            <a class="add-btn"><i class="fas fa-plus-circle"></i></a>
+        </div>
+        <div class="new-folder-container">
+            <form class="new-folder">
+                <h2 class="form-title">New Project</h2>
+                <div class="form-content">
+                    <label for="folder-name">Folder Name</label>
+                    <input type="text" name="folder-name" class="folder-name" placeholder="Folder name:">
+                    <div class="form-btns">
+                        <button class="form-btn" type="submit">Create</button>
+                        <button class="form-btn" type="submit">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
         <div class="folders-dir">
-            <div class="folders-dir-heading">
-                <h1 class="folders-title"></h1>
-                <i class="fas fa-plus-circle"></i>
-            </div>
             <div class="folders">
                 <div class="folder">
                     <h2 class="folder-name">Inbox</h2>
-                    <i class="fas fa-edit"></i>
-                    <i class="fas fa-trash-alt"></i>
+                    <div class="act-btns">
+                        <a class="edit-btn"><i class="fas fa-edit"></i></a>
+                        <a class="del-btn"><i class="fas fa-trash-alt"></i></a>
+                    </div>
                 </div>
                 <div class="folder">
                     <h2 class="folder-name">Project 1</h2>
-                    <i class="fas fa-edit"></i>
-                    <i class="fas fa-trash-alt"></i>
+                    <div class="act-btns">
+                        <a class="edit-btn"><i class="fas fa-edit"></i></a>
+                        <a class="del-btn"><i class="fas fa-trash-alt"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
