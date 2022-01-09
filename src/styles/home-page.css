@@ -20,12 +20,6 @@ ul {
     align-items: center;
 }
 
-#search-bar {
-    justify-content: space-around;
-    align-items: center;
-    padding: 6px;
-}
-
 input[type="text"]:focus {
     outline: none;
 }
@@ -43,7 +37,7 @@ button:hover, a:hover {
     cursor: pointer;
 }
 
-#search-bar i {
+#search-bar-li i {
     padding-left: 6px;
 }
 
