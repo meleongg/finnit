@@ -4,7 +4,6 @@ const toggleElm = (id) => {
     const gridElms = [];
     const inlineBlkElms = ["add-folders-btn"];
     let display = window.getComputedStyle(elm).display;
-    console.log({display, id, elm});
 
     if (display !== "none") {
         elm.style.display = "none";
@@ -21,7 +20,6 @@ const toggleElm = (id) => {
 
 const toggleOpaque = () => {
     const opaque = document.getElementById("opaque");
-    console.log({opaque})
     let bgColor = window.getComputedStyle(opaque).backgroundColor;
     const heading = document.getElementsByClassName("heading")[0];
     

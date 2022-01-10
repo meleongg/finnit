@@ -130,7 +130,6 @@ ul i {
 
 /* Folders Directory */
 .folders-dir {
-    z-index: -2;
     height: calc(100% - 70px);
     display: flex;
     flex-direction: column;
@@ -177,7 +176,7 @@ ul i {
     padding-right: 10px;
 }
 
-/* TODO: figure out why this isn't working, z-index?  */
-.folder:hover {
+.folder:hover, .folder:active {
     background-color: #6ACE46;
+    cursor: pointer;
 }

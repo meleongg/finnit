@@ -1,8 +1,27 @@
 const validateFns = (() => {
-    const checkDuplicate = (name, folders) => {
-        if (folders.includes(name)) {
+    const checkEmptyArr = (folders) => {
+        if (folders.length === 0) {
             return true;
         } 
+
+        return false;
+    }
+
+    const _getFolderNames = (folders) => {
+        let names = [];
+        for (let i = 0; i < folders.length; i++) {
+            names.push(folders[i].name);
+        }
+
+        return names;
+    }
+
+    const checkDuplicate = (name, folders) => {
+        const names = _getFolderNames(folders);
+        if (names.includes(name)) {
+            return true;
+        } 
+
         return false;
     }
 
@@ -14,7 +33,7 @@ const validateFns = (() => {
         return false;
     }
 
-    return { checkDuplicate, checkEmpty };
+    return { checkEmptyArr, checkDuplicate, checkEmpty };
 })();
 
 export { validateFns }

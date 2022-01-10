@@ -50,8 +50,19 @@ const detectElms = (() => {
         });
     }
 
+    // must be added right when the button is created
+    const detectDeleteFolder = (btn) => {
+        btn.addEventListener("click", (e) => {
+            let btnA = e.target.parentElement;
+            let btnDiv = btnA.parentElement;
+            let folder = btnDiv.parentElement;
+            let index = btnA.dataset.index;
+            logicController.deleteFolder(index, folder);
+        });
+    }
+
     return { detectMenuClick, detectAddFolder, detectFolderCancelBtn,
-             detectFolderSubmitBtn }
+             detectFolderSubmitBtn, detectDeleteFolder }
 })();
 
 const resetMainPageDetects = () => {

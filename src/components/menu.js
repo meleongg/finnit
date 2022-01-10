@@ -62,7 +62,7 @@ const renderMenu = () => {
 
     const allTasksLink = document.createElement("a");
     allTasksLink.classList.add("menu-title");
-    allTasksLink.innerText = "Folders";
+    allTasksLink.innerText = "All Tasks";
     allTasksTitle.appendChild(allTasksLink);
 
     return menu;

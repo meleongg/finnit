@@ -1,3 +1,5 @@
+import { detectElms } from "./detect";
+
 const renderFolder = (name) => {
     const folder = document.createElement("div");
     folder.classList.add("folder");
@@ -28,6 +30,7 @@ const renderFolder = (name) => {
     delBtnIcon.classList.add("fas");
     delBtnIcon.classList.add("fa-trash-alt");
     delBtn.appendChild(delBtnIcon);
+    detectElms.detectDeleteFolder(delBtnIcon);
     
     return folder;
 }
@@ -42,11 +45,17 @@ const renderFolders = (folders) => {
     foldersDir.appendChild(foldersDiv);
 
     for (let i=0; i<folders.length; i++) {
-        const oneFolder = renderFolder(folders[i]);
+        const oneFolder = renderFolder(folders[i].name);
+        oneFolder.dataset.index = i;
         foldersDiv.appendChild(oneFolder);
     }
 
     return foldersDir;
 }   
 
-export { renderFolders }
+const removeFolder = (folder) => {
+    folder.innerHTML = "";
+    folder.remove();
+}
+
+export { renderFolders, removeFolder }
