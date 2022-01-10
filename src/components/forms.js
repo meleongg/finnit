@@ -4,6 +4,7 @@ const renderFolderForm = () => {
     newFolderContainer.id = "folder-form";
 
     const newFolder = document.createElement("form");
+    newFolder.id = "new-folder-form";
     newFolder.classList.add("new-folder");
     newFolderContainer.appendChild(newFolder);
 
@@ -24,6 +25,7 @@ const renderFolderForm = () => {
     const nameInput = document.createElement("input");
     nameInput.type = "text";
     nameInput.name = "folder-name";
+    nameInput.id = "folder-name-input";
     nameInput.classList.add("folder-name");
     nameInput.placeholder = "Folder name..";
     formContent.appendChild(nameInput);
@@ -33,12 +35,14 @@ const renderFolderForm = () => {
     formContent.appendChild(formBtns);
 
     const createBtn = document.createElement("button");
+    createBtn.id = "create-folder-btn";
     createBtn.classList.add("form-btn");
     createBtn.type = "submit";
     createBtn.innerText = "Create";
     formBtns.appendChild(createBtn);
 
     const cancelBtn = document.createElement("button");
+    cancelBtn.id = "cancel-folder-btn";
     cancelBtn.classList.add("form-btn");
     cancelBtn.type = "submit";
     cancelBtn.innerText = "Cancel";
@@ -47,8 +51,20 @@ const renderFolderForm = () => {
     return newFolderContainer;
 }
 
+const getFolderFormInfo = () => {
+    const name = document.getElementById("folder-name-input");
+    const value = name.value; 
+    return value;
+}
+
 const renderTaskForm = () => {
 
 }
 
-export { renderFolderForm, renderTaskForm }
+const resetForm = (id) => {
+    const form = document.getElementById(id);
+    form.reset();
+}
+
+export { renderFolderForm, renderTaskForm, getFolderFormInfo, 
+         resetForm }

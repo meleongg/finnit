@@ -33,7 +33,7 @@ button {
     border: none;
 }
 
-button:hover, a:hover {
+button:hover, a:hover, #menu-toggle-btn:hover {
     cursor: pointer;
 }
 
@@ -60,7 +60,7 @@ ul i {
     height: calc(100% - 70px);
     position: fixed;
     top: 70px;
-    z-index: -1;
+    z-index: 0;
 }
 
 /* TODO: add transition to slide in load */
@@ -80,6 +80,7 @@ ul i {
 
 /* Folders Heading */
 .heading {
+    /* z-index: -2; */
     font-size: 30px;
     padding: 30px 0 20px 0;
     width: 100%;
@@ -137,12 +138,12 @@ ul i {
     align-items: center;
 }
 
-.opaque {
-    position: fixed;
-    height: calc(100% - 70px);
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+#opaque {
+    position: absolute;
+    height: 0;
+    width: 0;
     top: 70px;
+    left: 50%;
 }
 
 .heading-title {
@@ -169,9 +170,14 @@ ul i {
     display: flex;
     width: 80%;
     justify-content: space-between;
-    padding: 10px 0;
+    padding: 10px;
 }
 
 .act-btns a:not(:last-child) {
     padding-right: 10px;
+}
+
+/* TODO: figure out why this isn't working, z-index?  */
+.folder:hover {
+    background-color: #6ACE46;
 }

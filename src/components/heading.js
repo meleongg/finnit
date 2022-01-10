@@ -1,6 +1,7 @@
 const renderHeading = (type) => {
     const heading = document.createElement("div");
     heading.classList.add("heading");
+    heading.id = "heading";
 
     const headingTitle = document.createElement("h1");
     headingTitle.classList.add("heading-title");

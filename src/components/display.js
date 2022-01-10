@@ -1,19 +1,28 @@
 import { renderMainPage } from "./main-page";
 import { renderHeader } from "./header";
-
-const content = document.getElementById("content");
+import { resetMainPageDetects } from "./detect";
 
 const displayController = (() => {
-    const _clearForm = () => {
-        content.innerText = "";
+    const _content = document.getElementById("content");
+
+    const _clear = () => {
+        _content.innerHTML = "";
+    }
+
+    const _resetElmStates = () => {
+        const form = document.getElementById("folder-form");
     }
 
     const displayHeader = () => {
-        renderHeader(content);
+        renderHeader(_content);
     }
 
-    const displayMainPage = () => {
-        renderMainPage(content);
+    const displayMainPage = (folders) => {
+        _clear();
+        displayHeader();
+        renderMainPage(_content, folders);
+        // _resetElmStates();
+        resetMainPageDetects();
     }
     
     // TODO: create another js file to detect all events 
