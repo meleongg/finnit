@@ -1,3 +1,5 @@
+import { detectElms } from "./detect";
+
 const renderFolderForm = () => {
     const newFolderContainer = document.createElement("div");
     newFolderContainer.classList.add("new-folder-container");
@@ -61,10 +63,42 @@ const renderTaskForm = () => {
 
 }
 
+const removeFolderBtns = (folder) => {
+    const btnsContainer = document.children[-1];
+    folder.removeChild(btnsContainer);
+    btnsContainer.innerHTML = "";
+    btnsContainer.remove();
+}
+
+const renderEditFolderForm = (folder) => {
+    const nameElm = folder.children[0];
+    const name = nameElm.innerText;
+    folder.innerHTML = "";
+
+    const input = document.createElement("input");
+    input.type = "text";
+    // replace placeholder? with name
+    folder.appendChild(input);
+
+    const saveIcon = document.createElement("i");
+    saveIcon.classList.add("fas");
+    saveIcon.classList.add("fa-check");
+    folder.appendChild(saveIcon);
+
+    detectElms.detectSaveEditFolder(saveIcon);
+}
+
+const getEditFolderInfo = (folder) => {
+    const input = folder.children[0];
+    const value = input.value;
+    return value;
+}
+
 const resetForm = (id) => {
     const form = document.getElementById(id);
     form.reset();
 }
 
 export { renderFolderForm, renderTaskForm, getFolderFormInfo, 
-         resetForm }
+         resetForm, removeFolderBtns, renderEditFolderForm,
+         getEditFolderInfo }

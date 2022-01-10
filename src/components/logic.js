@@ -31,6 +31,20 @@ const logicController = (() => {
         }
     }
 
+    const editFolder = (index, folder, newName) => {
+        if (validateFns.checkDuplicate(newName, _folders)) {
+             // resetForm("new-folder-form");
+            throwError("Folder already exists!");
+        } else if (validateFns.checkEmpty(newName)) {
+            // resetForm("new-folder-form");
+            throwError("Folder name cannot be empty!");
+        } else {
+            // let newFolder = new Folder(name, []);
+            // _folders.push(newFolder);
+            displayController.displayMainPage(_folders);
+        }
+    }
+
     const deleteFolder = (index, folder) => {
         _folders.splice(index, 1);
         removeFolder(folder);
@@ -41,7 +55,7 @@ const logicController = (() => {
         return _folders; 
     }
 
-    return { addFolder, deleteFolder, getFolders }
+    return { addFolder, deleteFolder, editFolder, getFolders }
 })();
 
 export { logicController }

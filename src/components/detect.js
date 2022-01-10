@@ -1,5 +1,6 @@
 import { toggleElm, toggleOpaque } from "./toggle";
-import { getFolderFormInfo, resetForm } from "./forms";
+import { getFolderFormInfo, resetForm, removeFolderBtns, 
+         renderEditFolderForm, getEditFolderInfo } from "./forms";
 import { logicController } from "./logic";
 
 const detectElms = (() => {
@@ -50,6 +51,27 @@ const detectElms = (() => {
         });
     }
 
+    const detectEditFolder = (btn) => {
+        btn.addEventListener("click", (e) => {
+            let btnA = e.target.parentElement;
+            let btnDiv = btnA.parentElement;
+            let folder = btnDiv.parentElement;
+            removeFolderBtns();
+            renderEditFolderForm(folder);
+        });
+    }
+
+    const detectSaveEditFolder = (btn) => {
+        btn.addEventListener("click", (e) => {
+            let btnA = e.target.parentElement;
+            let btnDiv = btnA.parentElement;
+            let folder = btnDiv.parentElement;
+            let index = btnA.dataset.index;
+            let newName = getEditFolderInfo(folder);
+            logicController.editFolder(index, folder, newName);
+        });
+    }
+
     // must be added right when the button is created
     const detectDeleteFolder = (btn) => {
         btn.addEventListener("click", (e) => {
@@ -62,7 +84,8 @@ const detectElms = (() => {
     }
 
     return { detectMenuClick, detectAddFolder, detectFolderCancelBtn,
-             detectFolderSubmitBtn, detectDeleteFolder }
+             detectFolderSubmitBtn, detectEditFolder, detectDeleteFolder,
+             detectSaveEditFolder }
 })();
 
 const resetMainPageDetects = () => {
