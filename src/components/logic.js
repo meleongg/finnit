@@ -31,31 +31,41 @@ const logicController = (() => {
         }
     }
 
-    const editFolder = (index, folder, newName) => {
-        if (validateFns.checkDuplicate(newName, _folders)) {
-             // resetForm("new-folder-form");
-            throwError("Folder already exists!");
-        } else if (validateFns.checkEmpty(newName)) {
-            // resetForm("new-folder-form");
-            throwError("Folder name cannot be empty!");
-        } else {
-            // let newFolder = new Folder(name, []);
-            // _folders.push(newFolder);
+    const editFolder = (index, folder, newName, oldName) => {
+        if (validateFns.checkNoChange(newName, oldName)) {
+            _folders[index].name = newName;
             displayController.displayMainPage(_folders);
+        } else {
+            if (validateFns.checkDuplicate(newName, _folders)) {
+                throwError("Folder already exists!");
+            } else if (validateFns.checkEmpty(newName)) {
+                throwError("Folder name cannot be empty!");
+            } else {
+                _folders[index].name = newName;
+                displayController.displayMainPage(_folders);
+            }
         }
     }
 
     const deleteFolder = (index, folder) => {
-        _folders.splice(index, 1);
-        removeFolder(folder);
-        displayController.displayMainPage(_folders);
+        if (validateFns.checkDefault(index)) {
+            throwError(`Cannot delete ${_folders[index].name}! Must have at least 1 folder.`)
+        } else {
+            _folders.splice(index, 1);
+            removeFolder(folder);
+            displayController.displayMainPage(_folders);
+        }
     }
 
     const getFolders = () => {
         return _folders; 
     }
 
-    return { addFolder, deleteFolder, editFolder, getFolders }
+    const getFolder = (index) => {
+        return _folders[index];
+    }
+
+    return { addFolder, deleteFolder, editFolder, getFolders, getFolder }
 })();
 
 export { logicController }

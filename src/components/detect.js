@@ -1,7 +1,10 @@
 import { toggleElm, toggleOpaque } from "./toggle";
-import { getFolderFormInfo, resetForm, removeFolderBtns, 
-         renderEditFolderForm, getEditFolderInfo } from "./forms";
+import {
+    getFolderFormInfo, resetForm, removeFolderBtns,
+    renderEditFolderForm, getEditFolderInfo
+} from "./forms";
 import { logicController } from "./logic";
+import { displayController } from "./display";
 
 const detectElms = (() => {
     const _detectOpaqueClick = () => {
@@ -20,7 +23,7 @@ const detectElms = (() => {
         });
         _detectOpaqueClick();
     }
-    
+
     const detectAddFolder = () => {
         const btn = document.getElementById("add-folders-btn");
         btn.addEventListener("click", () => {
@@ -28,7 +31,7 @@ const detectElms = (() => {
             toggleElm("folder-form");
         });
     }
-    
+
     const detectFolderCancelBtn = () => {
         const btn = document.getElementById("cancel-folder-btn");
         btn.addEventListener("click", (e) => {
@@ -56,36 +59,49 @@ const detectElms = (() => {
             let btnA = e.target.parentElement;
             let btnDiv = btnA.parentElement;
             let folder = btnDiv.parentElement;
-            removeFolderBtns();
+            let folderName = folder.children[0];
+            let oldName = folderName.innerText;
+            folder.dataset.oldName = oldName;
+            removeFolderBtns(folder);
             renderEditFolderForm(folder);
         });
     }
 
     const detectSaveEditFolder = (btn) => {
         btn.addEventListener("click", (e) => {
-            let btnA = e.target.parentElement;
-            let btnDiv = btnA.parentElement;
-            let folder = btnDiv.parentElement;
-            let index = btnA.dataset.index;
+            let folder = e.target.parentElement;
+            let index = folder.dataset.index;
             let newName = getEditFolderInfo(folder);
-            logicController.editFolder(index, folder, newName);
+            let oldName = folder.dataset.oldName;
+            logicController.editFolder(index, folder, newName, oldName);
         });
     }
 
-    // must be added right when the button is created
     const detectDeleteFolder = (btn) => {
         btn.addEventListener("click", (e) => {
             let btnA = e.target.parentElement;
             let btnDiv = btnA.parentElement;
             let folder = btnDiv.parentElement;
-            let index = btnA.dataset.index;
+            let index = folder.dataset.index;
             logicController.deleteFolder(index, folder);
         });
     }
 
-    return { detectMenuClick, detectAddFolder, detectFolderCancelBtn,
-             detectFolderSubmitBtn, detectEditFolder, detectDeleteFolder,
-             detectSaveEditFolder }
+    const detectFolderClick = (headingElm) => {
+        headingElm.addEventListener("click", (e) => {
+            let folder = e.target.parentElement;
+            // let folderName = folder.innerText;
+            let index = folder.dataset.index;
+            const folderInfo = logicController.getFolder(index);
+            displayController.displayFolderPage(folderInfo);
+        });
+    } 
+
+    return {
+        detectMenuClick, detectAddFolder, detectFolderCancelBtn,
+        detectFolderSubmitBtn, detectEditFolder, detectDeleteFolder,
+        detectSaveEditFolder, detectFolderClick
+    }
 })();
 
 const resetMainPageDetects = () => {

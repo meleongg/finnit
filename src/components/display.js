@@ -24,12 +24,17 @@ const displayController = (() => {
         // _resetElmStates();
         resetMainPageDetects();
     }
+
+    // should consume a folder object to render the tasks
+    const displayFolderPage = (folder) => {
+        console.log(folder.name);
+    }
     
     // TODO: create another js file to detect all events 
     // TODO: create another js file to handle displayControl? 
     //    - calls renderMainPage, renderTask, etc.
     
-    return { displayHeader, displayMainPage };
+    return { displayHeader, displayMainPage, displayFolderPage };
 })();
 
 export { displayController }

@@ -64,7 +64,8 @@ const renderTaskForm = () => {
 }
 
 const removeFolderBtns = (folder) => {
-    const btnsContainer = document.children[-1];
+    const children = Array.from(folder.children);
+    const btnsContainer = children[children.length - 1];
     folder.removeChild(btnsContainer);
     btnsContainer.innerHTML = "";
     btnsContainer.remove();
@@ -74,10 +75,11 @@ const renderEditFolderForm = (folder) => {
     const nameElm = folder.children[0];
     const name = nameElm.innerText;
     folder.innerHTML = "";
+    folder.style.backgroundColor = `#6ACE46`;
 
     const input = document.createElement("input");
     input.type = "text";
-    // replace placeholder? with name
+    input.value = name;
     folder.appendChild(input);
 
     const saveIcon = document.createElement("i");
@@ -88,8 +90,14 @@ const renderEditFolderForm = (folder) => {
     detectElms.detectSaveEditFolder(saveIcon);
 }
 
+const resetEditFolderForm = (folder) => {
+    const nameElm = folder.children[0];
+    const name = nameElm.innerText;
+}
+
 const getEditFolderInfo = (folder) => {
-    const input = folder.children[0];
+    const children = Array.from(folder.children);
+    const input = children[0];
     const value = input.value;
     return value;
 }

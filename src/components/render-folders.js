@@ -8,6 +8,7 @@ const renderFolder = (name) => {
     heading.classList.add("folder-name");
     heading.innerText = name;
     folder.appendChild(heading);
+    detectElms.detectFolderClick(heading);
 
     const actBtns = document.createElement("div");
     actBtns.classList.add("act-btns");
@@ -21,6 +22,7 @@ const renderFolder = (name) => {
     editBtnIcon.classList.add("fas");
     editBtnIcon.classList.add("fa-edit");
     editBtn.appendChild(editBtnIcon);
+    detectElms.detectEditFolder(editBtnIcon);
 
     const delBtn = document.createElement("a");
     delBtn.classList.add("del-btn");
@@ -35,6 +37,7 @@ const renderFolder = (name) => {
     return folder;
 }
 
+// consumes a list of folder objects
 const renderFolders = (folders) => {
     const foldersDir = document.createElement("div");
     foldersDir.classList.add("folders-dir");

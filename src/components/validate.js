@@ -32,8 +32,26 @@ const validateFns = (() => {
         }
         return false;
     }
+    
+    const checkDefault = (index) => {
+        if (index == 0) {
+            return true;
+        }
 
-    return { checkEmptyArr, checkDuplicate, checkEmpty };
+        return false;
+    }
+
+    const checkNoChange = (newName, oldName) => {
+        console.log(newName, oldName)
+        if (newName === oldName) {
+            return true;
+        }
+
+        return false;
+    }
+
+    return { checkEmptyArr, checkDuplicate, checkEmpty, checkDefault,
+             checkNoChange };
 })();
 
 export { validateFns }
