@@ -20,17 +20,6 @@ ul {
     align-items: center;
 }
 
-input[type="text"]:focus {
-    outline: none;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-size: inherit;
-}
-
-input[type="text"] {
-    border: none;
-    padding: 3px;
-}
-
 button {
     border: none;
 }
@@ -89,18 +78,43 @@ ul i {
     text-align: center;
 }
 
-/* New Folder Form */
-.new-folder-container {
+.add-btn {
+    position: absolute;
+    right: 5px;
+    color: #6ACE46;
+}
+
+.back-btn {
+    position: absolute;
+    left: 5px;
+    color: #6ACE46;
+}
+
+/* New Folder & Task Forms */
+.new-folder-container, .new-task-container {
     width: 100%;
 }
 
-#folder-form {
-    display: none;
+#folder-form, #task-form {
+    /* display: none; */
     justify-content: center;
     align-items: center;
 }
 
-.new-folder {
+input[type="text"]:focus, input[type="date"]:focus, select:focus, textarea:focus {
+    outline: none;
+}
+
+input[type="text"], input[type="date"], select, textarea {
+    border: none;
+    padding: 3px;
+}
+
+select, input[type="date"], textarea {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.new-folder, .new-task {
     display: grid;
     row-gap: 10px;
     background-color: #6ACE46;
@@ -149,12 +163,6 @@ ul i {
 
 .heading-title {
     display: inline-block;
-}
-
-.add-btn {
-    position: absolute;
-    right: 5px;
-    color: #6ACE46;
 }
 
 /* Folder */

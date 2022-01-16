@@ -27,6 +27,8 @@ const displayController = (() => {
 
     // should consume a folder object to render the tasks
     const displayFolderPage = (folder) => {
+        _clear();
+        displayHeader();
         console.log(folder.name);
     }
     
