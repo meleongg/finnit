@@ -1,16 +1,13 @@
 import { renderMainPage } from "./main-page";
 import { renderHeader } from "./header";
-import { resetMainPageDetects } from "./detect";
+import { resetMainPageDetects, resetFolderPageDetects } from "./detect";
+import { renderFolderPage } from "./folder-page";
 
 const displayController = (() => {
     const _content = document.getElementById("content");
 
     const _clear = () => {
         _content.innerHTML = "";
-    }
-
-    const _resetElmStates = () => {
-        const form = document.getElementById("folder-form");
     }
 
     const displayHeader = () => {
@@ -21,7 +18,6 @@ const displayController = (() => {
         _clear();
         displayHeader();
         renderMainPage(_content, folders);
-        // _resetElmStates();
         resetMainPageDetects();
     }
 
@@ -29,7 +25,8 @@ const displayController = (() => {
     const displayFolderPage = (folder) => {
         _clear();
         displayHeader();
-        console.log(folder.name);
+        renderFolderPage(_content, folder);
+        resetFolderPageDetects();
     }
     
     // TODO: create another js file to detect all events 

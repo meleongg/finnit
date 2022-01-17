@@ -1,23 +1,24 @@
 import { detectElms } from "./detect";
+import { getMinDueDate } from "./date";
 
 const renderFolderForm = () => {
-    const newFolderContainer = document.createElement("div");
-    newFolderContainer.classList.add("new-folder-container");
-    newFolderContainer.id = "folder-form";
+    const newTaskContainer = document.createElement("div");
+    newTaskContainer.classList.add("new-folder-container");
+    newTaskContainer.id = "folder-form";
 
-    const newFolder = document.createElement("form");
-    newFolder.id = "new-folder-form";
-    newFolder.classList.add("new-folder");
-    newFolderContainer.appendChild(newFolder);
+    const newTask = document.createElement("form");
+    newTask.id = "new-folder-form";
+    newTask.classList.add("new-folder");
+    newTaskContainer.appendChild(newTask);
 
     const title = document.createElement("h2");
     title.classList.add("form-title");
     title.innerText = "New Folder";
-    newFolder.appendChild(title);
+    newTask.appendChild(title);
 
     const formContent = document.createElement("div");
     formContent.classList.add("form-content");
-    newFolder.appendChild(formContent);
+    newTask.appendChild(formContent);
 
     const nameLabel = document.createElement("label");
     nameLabel.for = "folder-name";
@@ -50,17 +51,13 @@ const renderFolderForm = () => {
     cancelBtn.innerText = "Cancel";
     formBtns.appendChild(cancelBtn);
 
-    return newFolderContainer;
+    return newTaskContainer;
 }
 
 const getFolderFormInfo = () => {
     const name = document.getElementById("folder-name-input");
     const value = name.value; 
     return value;
-}
-
-const renderTaskForm = () => {
-
 }
 
 const removeFolderBtns = (folder) => {
@@ -102,6 +99,134 @@ const getEditFolderInfo = (folder) => {
     return value;
 }
 
+const renderTaskForm = () => {
+    const newTaskContainer = document.createElement("div");
+    newTaskContainer.classList.add("new-task-container");
+    newTaskContainer.id = "task-form";
+
+    const newTask = document.createElement("form");
+    newTask.id = "new-task-form";
+    newTask.classList.add("new-task");
+    newTaskContainer.appendChild(newTask);
+
+    const title = document.createElement("h2");
+    title.classList.add("form-title");
+    title.innerText = "New Task";
+    newTask.appendChild(title);
+
+    const formContent = document.createElement("div");
+    formContent.classList.add("form-content");
+    newTask.appendChild(formContent);
+
+    const nameLabel = document.createElement("label");
+    nameLabel.for = "task-name";
+    nameLabel.innerText = "Task Name";
+    formContent.appendChild(nameLabel);
+
+    const nameInput = document.createElement("input");
+    nameInput.type = "text";
+    nameInput.name = "task-name";
+    nameInput.id = "task-name-input";
+    nameInput.classList.add("task-name");
+    nameInput.placeholder = "Task name..";
+    formContent.appendChild(nameInput);
+
+    const dateLabel = document.createElement("label");
+    dateLabel.for = "task-date";
+    dateLabel.innerText = "Due Date";
+    formContent.appendChild(dateLabel);
+
+    const dateInput = document.createElement("input");
+    dateInput.type = "date";
+    dateInput.name = "task-date";
+    dateInput.id = "task-date";
+    dateInput.placeholder = "Due date..";
+    dateInput.min = getMinDueDate();
+    formContent.appendChild(dateInput);
+
+    const descLabel = document.createElement("label");
+    descLabel.for = "task-desc";
+    descLabel.innerText = "Description";
+    formContent.appendChild(descLabel);
+
+    const descInput = document.createElement("input");
+    descInput.type = "text";
+    descInput.name = "task-desc";
+    descInput.id = "task-desc";
+    descInput.placeholder = "Description..";
+    formContent.appendChild(descInput);
+
+    const priorityLabel = document.createElement("label");
+    priorityLabel.for = "task-priority";
+    priorityLabel.innerText = "Priority";
+    formContent.appendChild(priorityLabel);
+
+    const priority = document.createElement("select");
+    priority.name = "task-priority";
+    priority.id = "task-priority";
+    formContent.appendChild(priority);
+
+    const urgentOption = document.createElement("option");
+    urgentOption.value = "urgent";
+    urgentOption.innerText = "Urgent";
+    priority.appendChild(urgentOption);
+
+    const semiUrgentOption = document.createElement("option");
+    semiUrgentOption.value = "semi-urgent";
+    semiUrgentOption.innerText = "Semi-Urgent";
+    priority.appendChild(semiUrgentOption);
+
+    const notUrgentOption = document.createElement("option");
+    notUrgentOption.value = "not-urgent";
+    notUrgentOption.innerText = "Not Urgent";
+    priority.appendChild(notUrgentOption);
+
+    const notesLabel = document.createElement("label");
+    notesLabel.for = "task-notes";
+    notesLabel.innerText = "Notes";
+    formContent.appendChild(notesLabel);
+
+    const notes = document.createElement("textarea");
+    notes.name = "task-notes";
+    notes.id = "task-notes";
+    notes.cols = "30";
+    notes.rows = "10";
+    notes.maxLength = "30"; // TODO: make textarea non-resizable
+    formContent.appendChild(notes);
+
+    const formBtns = document.createElement("div");
+    formBtns.classList.add("form-btns");
+    formContent.appendChild(formBtns);
+
+    const createBtn = document.createElement("button");
+    createBtn.id = "create-folder-btn";
+    createBtn.classList.add("form-btn");
+    createBtn.type = "submit";
+    createBtn.innerText = "Create";
+    formBtns.appendChild(createBtn);
+
+    const cancelBtn = document.createElement("button");
+    cancelBtn.id = "cancel-folder-btn";
+    cancelBtn.classList.add("form-btn");
+    cancelBtn.type = "submit";
+    cancelBtn.innerText = "Cancel";
+    formBtns.appendChild(cancelBtn);
+
+    return newTaskContainer;
+}
+
+const getTaskFormInfo = () => {
+    const values = [];
+    const name = document.getElementById("task-name").value;
+    const date = document.getElementById("task-date").value;
+    const desc = document.getElementById("task-desc").value;
+    const priority = document.getElementById("task-priority").selectedOptions[0].value;
+    const notes = document.getElementById("task-notes").value;
+    values.push(name, date, desc, priority, notes);
+
+    return values;
+}
+
 const resetForm = (id) => {
     const form = document.getElementById(id);
     form.reset();
@@ -109,4 +234,4 @@ const resetForm = (id) => {
 
 export { renderFolderForm, renderTaskForm, getFolderFormInfo, 
          resetForm, removeFolderBtns, renderEditFolderForm,
-         getEditFolderInfo }
+         getEditFolderInfo, getTaskFormInfo }

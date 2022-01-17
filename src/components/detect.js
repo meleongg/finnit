@@ -97,10 +97,50 @@ const detectElms = (() => {
         });
     } 
 
+    const detectBackBtn = () => {
+        const btn = document.getElementById("back-btn");
+        btn.addEventListener("click", () => {
+            const folders = logicController.getFolders();
+            renderMainPage(folders); 
+        });
+    }
+
+    const detectAddTask = () => {
+        const btn = document.getElementById("add-task-btn");
+        btn.addEventListener("click", () => {
+            toggleElm("add-task-btn");
+            toggleElm("new-task-form");
+        });
+    }
+
+    const detectTaskCancelBtn = () => {
+        const btn = document.getElementById("cancel-task-btn");
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            resetForm("new-task-form");
+            toggleElm("task-form");
+            toggleElm("add-task-btn");
+        });
+    }
+
+    const detectTaskSubmitBtn = () => {
+        const btn = document.getElementById("create-task-btn");
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            toggleElm("task-form");
+            toggleElm("add-task-btn");
+            let info = getTaskFormInfo(); 
+            resetForm("new-task-form");
+            // somehow get the folder object and invoke the addTask method
+            // logicController.addTask(info);
+        });
+    }
+
     return {
         detectMenuClick, detectAddFolder, detectFolderCancelBtn,
         detectFolderSubmitBtn, detectEditFolder, detectDeleteFolder,
-        detectSaveEditFolder, detectFolderClick
+        detectSaveEditFolder, detectFolderClick, detectBackBtn,
+        detectAddTask, detectTaskCancelBtn, detectTaskSubmitBtn
     }
 })();
 
@@ -111,4 +151,12 @@ const resetMainPageDetects = () => {
     detectElms.detectFolderSubmitBtn();
 }
 
-export { detectElms, resetMainPageDetects }
+const resetFolderPageDetects = () => {
+    detectElms.detectMenuClick();
+    detectElms.detectBackBtn();
+    detectElms.detectAddTask();
+    detectElms.detectTaskCancelBtn();
+    detectElms.detectTaskSubmitBtn();
+}
+
+export { detectElms, resetMainPageDetects, resetFolderPageDetects}

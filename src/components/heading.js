@@ -8,6 +8,18 @@ const renderHeading = (type) => {
     headingTitle.innerText = `${type[0].toUpperCase() + type.substring(1)}`;
     heading.appendChild(headingTitle);
 
+    if (type === "folder") {
+        const backBtn = document.createElement("a")
+        backBtn.id = "back-btn";
+        backBtn.classList.add("back-btn");
+        heading.appendChild(backBtn);
+
+        const backBtnIcon = document.createElement("i");
+        backBtnIcon.classList.add("fas");
+        backBtnIcon.classList.add("fa-chevron-circle-left");
+        backBtn.appendChild(backBtnIcon);
+    }
+
     const addBtn = document.createElement("a");
     addBtn.classList.add("add-btn")
     addBtn.id = `add-${type}-btn`;
