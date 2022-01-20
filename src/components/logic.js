@@ -49,12 +49,16 @@ const logicController = (() => {
 
     const deleteFolder = (index, folder) => {
         if (validateFns.checkDefault(index)) {
-            throwError(`Cannot delete ${_folders[index].name}! Must have at least 1 folder.`)
+            throwError(`Cannot delete ${_folders[index].name}!`)
         } else {
             _folders.splice(index, 1);
             removeFolder(folder);
             displayController.displayMainPage(_folders);
         }
+    }
+
+    const refreshFolderPage = (folder) => {
+        displayController.displayFolderPage(folder);
     }
 
     const getFolders = () => {
@@ -65,7 +69,8 @@ const logicController = (() => {
         return _folders[index];
     }
 
-    return { addFolder, deleteFolder, editFolder, getFolders, getFolder }
+    return { addFolder, deleteFolder, editFolder, getFolders, getFolder,
+             refreshFolderPage }
 })();
 
 export { logicController }

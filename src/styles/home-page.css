@@ -96,7 +96,7 @@ ul i {
 }
 
 #folder-form, #task-form {
-    /* display: none; */
+    display: none;
     justify-content: center;
     align-items: center;
 }

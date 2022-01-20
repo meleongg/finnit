@@ -8,7 +8,7 @@ const renderHeading = (type) => {
     headingTitle.innerText = `${type[0].toUpperCase() + type.substring(1)}`;
     heading.appendChild(headingTitle);
 
-    if (type === "folder") {
+    if (type !== "folders") {
         const backBtn = document.createElement("a")
         backBtn.id = "back-btn";
         backBtn.classList.add("back-btn");
@@ -22,7 +22,13 @@ const renderHeading = (type) => {
 
     const addBtn = document.createElement("a");
     addBtn.classList.add("add-btn")
-    addBtn.id = `add-${type}-btn`;
+
+    if (type === "folders") {
+        addBtn.id = `add-folders-btn`;
+    } else {
+        addBtn.id = `add-task-btn`;
+    }
+
     heading.appendChild(addBtn)
 
     const addBtnIcon = document.createElement("i");

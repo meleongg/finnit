@@ -29,7 +29,7 @@ const renderTask = (task) => {
     delBtnIcon.classList.add("fas");
     delBtnIcon.classList.add("fa-trash-alt");
     delBtn.appendChild(delBtnIcon);
-    // detectElms.detectDeleteFolder(delBtnIcon); TODO: detect delete folder
+    // detectElms.detectDeleteFolder(delBtnIcon); TODO: detect delete task
     
     return taskDiv;
 }

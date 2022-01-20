@@ -1,7 +1,7 @@
 import { toggleElm, toggleOpaque } from "./toggle";
 import {
     getFolderFormInfo, resetForm, removeFolderBtns,
-    renderEditFolderForm, getEditFolderInfo
+    renderEditFolderForm, getEditFolderInfo, getTaskFormInfo
 } from "./forms";
 import { logicController } from "./logic";
 import { displayController } from "./display";
@@ -101,10 +101,11 @@ const detectElms = (() => {
         const btn = document.getElementById("back-btn");
         btn.addEventListener("click", () => {
             const folders = logicController.getFolders();
-            renderMainPage(folders); 
+            displayController.displayMainPage(folders); 
         });
     }
 
+    // NOT WORKING!!!
     const detectAddTask = () => {
         const btn = document.getElementById("add-task-btn");
         btn.addEventListener("click", () => {
@@ -131,8 +132,12 @@ const detectElms = (() => {
             toggleElm("add-task-btn");
             let info = getTaskFormInfo(); 
             resetForm("new-task-form");
-            // somehow get the folder object and invoke the addTask method
-            // logicController.addTask(info);
+            let index = folder.dataset.index;
+            // folder is an object
+            let folder = logicController.getFolder(index);
+            let task = folder.createTask(info);
+            folder.addTask(task);
+            logicController.refreshFolderPage(folder);
         });
     }
 
@@ -155,8 +160,10 @@ const resetFolderPageDetects = () => {
     detectElms.detectMenuClick();
     detectElms.detectBackBtn();
     detectElms.detectAddTask();
-    detectElms.detectTaskCancelBtn();
-    detectElms.detectTaskSubmitBtn();
+    // no tasks have been added yet here, so no need to initialize 
+    // the detectors
+    // detectElms.detectTaskCancelBtn();
+    // detectElms.detectTaskSubmitBtn();
 }
 
 export { detectElms, resetMainPageDetects, resetFolderPageDetects}
