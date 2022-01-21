@@ -5,6 +5,7 @@ import {
 } from "./forms";
 import { logicController } from "./logic";
 import { displayController } from "./display";
+import { getHeading } from "./heading";
 
 const detectElms = (() => {
     const _detectOpaqueClick = () => {
@@ -105,12 +106,13 @@ const detectElms = (() => {
         });
     }
 
-    // NOT WORKING!!!
     const detectAddTask = () => {
         const btn = document.getElementById("add-task-btn");
         btn.addEventListener("click", () => {
             toggleElm("add-task-btn");
-            toggleElm("new-task-form");
+            toggleElm("task-form"); 
+            detectTaskCancelBtn();
+            detectTaskSubmitBtn();
         });
     }
 
@@ -132,9 +134,9 @@ const detectElms = (() => {
             toggleElm("add-task-btn");
             let info = getTaskFormInfo(); 
             resetForm("new-task-form");
-            let index = folder.dataset.index;
+            let heading = getHeading();
             // folder is an object
-            let folder = logicController.getFolder(index);
+            let folder = logicController.getFolderByName(heading);
             let task = folder.createTask(info);
             folder.addTask(task);
             logicController.refreshFolderPage(folder);
@@ -160,10 +162,6 @@ const resetFolderPageDetects = () => {
     detectElms.detectMenuClick();
     detectElms.detectBackBtn();
     detectElms.detectAddTask();
-    // no tasks have been added yet here, so no need to initialize 
-    // the detectors
-    // detectElms.detectTaskCancelBtn();
-    // detectElms.detectTaskSubmitBtn();
 }
 
 export { detectElms, resetMainPageDetects, resetFolderPageDetects}

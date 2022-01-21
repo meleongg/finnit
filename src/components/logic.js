@@ -69,8 +69,16 @@ const logicController = (() => {
         return _folders[index];
     }
 
+    const getFolderByName = (name) => {
+        for (let i = 0; i < _folders.length; i++) {
+            if (_folders[i].name === name) {
+                return _folders[i];
+            }
+        }
+    }
+
     return { addFolder, deleteFolder, editFolder, getFolders, getFolder,
-             refreshFolderPage }
+             refreshFolderPage, getFolderByName }
 })();
 
 export { logicController }

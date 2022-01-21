@@ -39,6 +39,11 @@ const renderHeading = (type) => {
     return heading;
 }
 
-// TODO: changeHeading function to change between Folders & Folder
+const getHeading = () => {
+    const heading = document.getElementsByClassName("heading-title")[0];
+    let text = heading.innerText;
 
-export { renderHeading }
+    return text;
+}
+
+export { renderHeading, getHeading }

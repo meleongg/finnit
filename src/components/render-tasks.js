@@ -2,12 +2,17 @@ import { detectElms } from "./detect"
 
 const renderTask = (task) => {
     const taskDiv = document.createElement("div");
-    task.classList.add("task");
+    taskDiv.classList.add("task");
 
     const status = document.createElement("input");
     status.name = "task-complete";
     status.class = "task-complete";
     status.type = "checkbox";
+    if (task.status === "checked") {
+        status.checked = "true";
+    } else {
+        status.checked = "false";
+    }
     taskDiv.appendChild(status);
 
     const heading = document.createElement("h2");
@@ -44,7 +49,7 @@ const renderTasks = (folder) => {
     tasks.appendChild(tasksList);
 
     for (let i=0; i<folder.tasks.length; i++) {
-        const oneTask = renderTask(folders.tasks[i]);
+        const oneTask = renderTask(folder.tasks[i]);
         oneTask.dataset.index = i;
         tasksList.appendChild(oneTask);
     }

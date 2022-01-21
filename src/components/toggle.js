@@ -1,6 +1,6 @@
 const toggleElm = (id) => {
     const elm = document.getElementById(id);
-    const flexElms = ["folder-form"];
+    const flexElms = ["folder-form", "task-form"];
     const gridElms = [];
     const inlineBlkElms = ["add-folders-btn"];
     let display = window.getComputedStyle(elm).display;

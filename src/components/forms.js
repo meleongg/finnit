@@ -126,7 +126,7 @@ const renderTaskForm = () => {
     const nameInput = document.createElement("input");
     nameInput.type = "text";
     nameInput.name = "task-name";
-    nameInput.id = "task-name-input";
+    nameInput.id = "task-name";
     nameInput.classList.add("task-name");
     nameInput.placeholder = "Task name..";
     formContent.appendChild(nameInput);
@@ -199,14 +199,14 @@ const renderTaskForm = () => {
     formContent.appendChild(formBtns);
 
     const createBtn = document.createElement("button");
-    createBtn.id = "create-folder-btn";
+    createBtn.id = "create-task-btn";
     createBtn.classList.add("form-btn");
     createBtn.type = "submit";
     createBtn.innerText = "Create";
     formBtns.appendChild(createBtn);
 
     const cancelBtn = document.createElement("button");
-    cancelBtn.id = "cancel-folder-btn";
+    cancelBtn.id = "cancel-task-btn";
     cancelBtn.classList.add("form-btn");
     cancelBtn.type = "submit";
     cancelBtn.innerText = "Cancel";
