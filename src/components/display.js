@@ -1,7 +1,8 @@
 import { renderMainPage } from "./main-page";
 import { renderHeader } from "./header";
-import { resetMainPageDetects, resetFolderPageDetects } from "./detect";
+import { resetMainPageDetects, resetFolderPageDetects, resetTaskPageDetects } from "./detect";
 import { renderFolderPage } from "./folder-page";
+import { renderTaskPage } from "./task-page";
 
 const displayController = (() => {
     const _content = document.getElementById("content");
@@ -28,12 +29,19 @@ const displayController = (() => {
         renderFolderPage(_content, folder);
         resetFolderPageDetects();
     }
+
+    const displayTaskPage = (task) => {
+        _clear();
+        displayHeader();
+        renderTaskPage(_content, task);
+        resetTaskPageDetects();
+    }
     
     // TODO: create another js file to detect all events 
     // TODO: create another js file to handle displayControl? 
     //    - calls renderMainPage, renderTask, etc.
     
-    return { displayHeader, displayMainPage, displayFolderPage };
+    return { displayHeader, displayMainPage, displayFolderPage, displayTaskPage };
 })();
 
 export { displayController }

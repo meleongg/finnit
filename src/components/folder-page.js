@@ -7,7 +7,7 @@ const renderFolderPage = (content, folder) => {
     const menu = renderMenu();
     const opaque = document.createElement("div");
     opaque.id = "opaque";
-    const heading = renderHeading(folder.name); 
+    const heading = renderHeading(folder.name, true); 
     const folderForm = renderTaskForm();
     const foldersResult = renderTasks(folder);
 

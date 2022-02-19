@@ -251,6 +251,7 @@ select, input[type="date"], textarea {
     display: grid;
     grid-template-columns: 1fr 4fr;
     grid-template-rows: repeat(4, 1fr);
+    align-items: center;
     column-gap: 20px;
     row-gap: 10px;
     padding-top: 10px;
@@ -268,11 +269,17 @@ select, input[type="date"], textarea {
 
 .task-details-3 {
     display: grid;
-    row-gap: 10px;
-    padding-bottom: 10px;
+    grid-template-columns: 1fr 4fr;
+    align-items: center;
+    column-gap: 20px;
+}
+
+.task-completed-display {
+    justify-self: center;
 }
 
 .finished-btns {
+    padding-top: 20px;
     display: flex;
     justify-content: center;
     align-content: center;

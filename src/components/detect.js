@@ -166,13 +166,24 @@ const detectElms = (() => {
         });
     }
 
+    const detectTaskClick = (headingElm) => {
+        headingElm.addEventListener("click", (e) => {
+            let task = e.target.parentElement;
+            let index = task.dataset.index;
+            let heading = getHeading();
+            let folder = logicController.getFolderByName(heading);
+            const taskInfo = folder.getTaskByIndex(index);
+            displayController.displayTaskPage(taskInfo);
+        });
+    } 
+
 
     return {
         detectMenuClick, detectAddFolder, detectFolderCancelBtn,
         detectFolderSubmitBtn, detectEditFolder, detectDeleteFolder,
         detectSaveEditFolder, detectFolderClick, detectBackBtn,
         detectAddTask, detectTaskCancelBtn, detectTaskSubmitBtn,
-        detectDeleteTask, detectTaskCheckbox
+        detectDeleteTask, detectTaskCheckbox, detectTaskClick
     }
 })();
 
@@ -189,4 +200,9 @@ const resetFolderPageDetects = () => {
     detectElms.detectAddTask();
 }
 
-export { detectElms, resetMainPageDetects, resetFolderPageDetects}
+const resetTaskPageDetects = () => {
+    detectElms.detectMenuClick();
+    detectElms.detectBackBtn();
+}
+
+export { detectElms, resetMainPageDetects, resetFolderPageDetects, resetTaskPageDetects}

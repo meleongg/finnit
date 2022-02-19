@@ -28,6 +28,10 @@ class Folder {
     deleteTask = (index) => {
         this.tasks.splice(index, 1);
     }
+
+    getTaskByIndex = (index) => {
+        return this.tasks[index];
+    }
 }
 
 export { Folder }

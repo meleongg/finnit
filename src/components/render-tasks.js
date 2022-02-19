@@ -20,9 +20,7 @@ const renderTask = (task) => {
     heading.classList.add("folder-name");
     heading.innerText = task.name;
     taskDiv.appendChild(heading);
-    // detectElms.detectFolderClick(heading); TODO: detect task click
-    // design the html, look at detect folder click for inspiration
-    // 
+    detectElms.detectTaskClick(heading); 
 
     const dueDate = document.createElement("h2");
     dueDate.classList.add("task-due-date");

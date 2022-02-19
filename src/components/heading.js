@@ -1,4 +1,4 @@
-const renderHeading = (type) => {
+const renderHeading = (type, needAddBtn) => {
     const heading = document.createElement("div");
     heading.classList.add("heading");
     heading.id = "heading";
@@ -20,21 +20,23 @@ const renderHeading = (type) => {
         backBtn.appendChild(backBtnIcon);
     }
 
-    const addBtn = document.createElement("a");
-    addBtn.classList.add("add-btn")
+    if (needAddBtn) {
+        const addBtn = document.createElement("a");
+        addBtn.classList.add("add-btn");
 
-    if (type === "folders") {
-        addBtn.id = `add-folders-btn`;
-    } else {
-        addBtn.id = `add-task-btn`;
+        if (type === "folders") {
+            addBtn.id = `add-folders-btn`;
+        } else {
+            addBtn.id = `add-task-btn`;
+        }
+
+        heading.appendChild(addBtn)
+
+        const addBtnIcon = document.createElement("i");
+        addBtnIcon.classList.add("fas");
+        addBtnIcon.classList.add("fa-plus-circle");
+        addBtn.appendChild(addBtnIcon);
     }
-
-    heading.appendChild(addBtn)
-
-    const addBtnIcon = document.createElement("i");
-    addBtnIcon.classList.add("fas");
-    addBtnIcon.classList.add("fa-plus-circle");
-    addBtn.appendChild(addBtnIcon);
 
     return heading;
 }
