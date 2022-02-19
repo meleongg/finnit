@@ -52,7 +52,7 @@ const logicController = (() => {
             throwError(`Cannot delete ${_folders[index].name}!`)
         } else {
             _folders.splice(index, 1);
-            removeFolder(folder);
+            // removeFolder(folder); redundant
             displayController.displayMainPage(_folders);
         }
     }

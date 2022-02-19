@@ -96,7 +96,7 @@ ul i {
 }
 
 #folder-form, #task-form {
-    display: none;
+    display: none; 
     justify-content: center;
     align-items: center;
 }
@@ -198,4 +198,82 @@ select, input[type="date"], textarea {
 .folder:hover, .folder:active, .task:hover, .task:active {
     background-color: #6ACE46;
     cursor: pointer;
+}
+
+/* Task Container */
+.task-outer-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.task-inner-container {
+    background-color: #6ACE46;
+    width: 90%;
+    padding: 15px;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edit-delete-btns {
+    display: flex;
+    justify-content: space-between;
+    width: 80px;
+}
+
+#edit-task-btn, #delete-task-btn {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.task-content {
+    display: grid;
+    row-gap: 10px;
+}
+
+.task-details {
+    display: grid;
+    row-gap: 10px;
+}
+
+.task-details p {
+    padding: 4px; 
+    background-color: #FFF;
+}
+
+.task-details-1 {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: repeat(4, 1fr);
+    column-gap: 20px;
+    row-gap: 10px;
+    padding-top: 10px;
+}
+
+.task-details-2 {
+    display: grid;
+    row-gap: 10px;
+}
+
+.task-notes-display {
+    width: 100%;
+    height: 100%;
+}
+
+.task-details-3 {
+    display: grid;
+    row-gap: 10px;
+    padding-bottom: 10px;
+}
+
+.finished-btns {
+    display: flex;
+    justify-content: center;
+    align-content: center;
 }

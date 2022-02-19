@@ -9,17 +9,20 @@ const renderTask = (task) => {
     status.class = "task-complete";
     status.type = "checkbox";
     if (task.status === "checked") {
-        status.checked = "true";
+        status.checked = true;
     } else {
-        status.checked = "false";
+        status.checked = false;
     }
     taskDiv.appendChild(status);
+    detectElms.detectTaskCheckbox(status);
 
     const heading = document.createElement("h2");
     heading.classList.add("folder-name");
     heading.innerText = task.name;
     taskDiv.appendChild(heading);
     // detectElms.detectFolderClick(heading); TODO: detect task click
+    // design the html, look at detect folder click for inspiration
+    // 
 
     const dueDate = document.createElement("h2");
     dueDate.classList.add("task-due-date");
@@ -34,7 +37,7 @@ const renderTask = (task) => {
     delBtnIcon.classList.add("fas");
     delBtnIcon.classList.add("fa-trash-alt");
     delBtn.appendChild(delBtnIcon);
-    // detectElms.detectDeleteFolder(delBtnIcon); TODO: detect delete task
+    detectElms.detectDeleteTask(delBtnIcon);
     
     return taskDiv;
 }

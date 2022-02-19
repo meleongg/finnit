@@ -2,7 +2,7 @@ const toggleElm = (id) => {
     const elm = document.getElementById(id);
     const flexElms = ["folder-form", "task-form"];
     const gridElms = [];
-    const inlineBlkElms = ["add-folders-btn"];
+    const inlineBlkElms = ["add-folders-btn", "add-task-btn"];
     let display = window.getComputedStyle(elm).display;
 
     if (display !== "none") {

@@ -143,11 +143,36 @@ const detectElms = (() => {
         });
     }
 
+    const detectDeleteTask = (btn) => {
+        btn.addEventListener("click", (e) => {
+            let btnA = e.target.parentElement;
+            let task = btnA.parentElement;
+            let index = task.dataset.index;
+            let heading = getHeading();
+            let folder = logicController.getFolderByName(heading);
+            folder.deleteTask(index);
+            logicController.refreshFolderPage(folder);
+        });
+    }
+
+    const detectTaskCheckbox = (input) => {
+        input.addEventListener("click", (e) => {
+            let task = e.target.parentElement;
+            let index = task.dataset.index; 
+            let heading = getHeading();
+            let folder = logicController.getFolderByName(heading);
+            folder.updateTaskStatus(index);
+            logicController.refreshFolderPage(folder);
+        });
+    }
+
+
     return {
         detectMenuClick, detectAddFolder, detectFolderCancelBtn,
         detectFolderSubmitBtn, detectEditFolder, detectDeleteFolder,
         detectSaveEditFolder, detectFolderClick, detectBackBtn,
-        detectAddTask, detectTaskCancelBtn, detectTaskSubmitBtn
+        detectAddTask, detectTaskCancelBtn, detectTaskSubmitBtn,
+        detectDeleteTask, detectTaskCheckbox
     }
 })();
 

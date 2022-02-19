@@ -1,5 +1,4 @@
 class Task {
-    status = "unchecked";
 
     constructor(name, date, desc, priority, notes) {
         this.name = name;
@@ -7,6 +6,15 @@ class Task {
         this.desc = desc;
         this.priority = priority;
         this.notes = notes;
+        this.status = "unchecked";
+    }
+
+    toggleStatus = () => {
+        if (this.status === "unchecked") {
+            this.status = "checked";
+        } else {
+            this.status = "unchecked";
+        }
     }
 }
 
