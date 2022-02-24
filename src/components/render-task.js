@@ -127,6 +127,7 @@ const renderFinishedBtns = () => {
 const renderTask = (task) => {
     const taskOuterContainer = document.createElement("div");
     taskOuterContainer.classList.add("task-outer-container");
+    taskOuterContainer.dataset.folder = task.getFolder();
 
     const taskInnerContainer = document.createElement("div");
     taskInnerContainer.classList.add("task-inner-container");
@@ -146,4 +147,8 @@ const renderTask = (task) => {
     return taskOuterContainer;
 }
 
-export { renderTask }
+const getOuterContainer = () => {
+    return document.getElementsByClassName("task-outer-container")[0];
+}
+
+export { renderTask, getOuterContainer }

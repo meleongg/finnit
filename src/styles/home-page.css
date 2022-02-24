@@ -1,3 +1,7 @@
+:root {
+    color-scheme: normal !important;
+}
+
 #content {
     display: flex;
     flex-direction: column;

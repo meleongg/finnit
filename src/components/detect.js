@@ -6,6 +6,7 @@ import {
 import { logicController } from "./logic";
 import { displayController } from "./display";
 import { getHeading } from "./heading";
+import { getOuterContainer } from "./render-task";
 
 const detectElms = (() => {
     const _detectOpaqueClick = () => {
@@ -98,14 +99,24 @@ const detectElms = (() => {
         });
     } 
 
-    const detectBackBtn = () => {
+    const detectBackHomeBtn = () => {
         const btn = document.getElementById("back-btn");
         btn.addEventListener("click", () => {
             const folders = logicController.getFolders();
             displayController.displayMainPage(folders); 
         });
     }
-
+    
+    const detectBackFolderBtn = () => {
+        const btn = document.getElementById("back-btn");
+        btn.addEventListener("click", () => {
+            const taskContainer = getOuterContainer();
+            const name = taskContainer.dataset.folder;
+            const folder = logicController.getFolderByName(name);
+            displayController.displayFolderPage(folder);
+        });
+    }
+    
     const detectAddTask = () => {
         const btn = document.getElementById("add-task-btn");
         btn.addEventListener("click", () => {
@@ -135,8 +146,8 @@ const detectElms = (() => {
             let info = getTaskFormInfo(); 
             resetForm("new-task-form");
             let heading = getHeading();
-            // folder is an object
             let folder = logicController.getFolderByName(heading);
+            info.push(folder.name);
             let task = folder.createTask(info);
             folder.addTask(task);
             logicController.refreshFolderPage(folder);
@@ -181,9 +192,10 @@ const detectElms = (() => {
     return {
         detectMenuClick, detectAddFolder, detectFolderCancelBtn,
         detectFolderSubmitBtn, detectEditFolder, detectDeleteFolder,
-        detectSaveEditFolder, detectFolderClick, detectBackBtn,
-        detectAddTask, detectTaskCancelBtn, detectTaskSubmitBtn,
-        detectDeleteTask, detectTaskCheckbox, detectTaskClick
+        detectSaveEditFolder, detectFolderClick, detectBackHomeBtn, 
+        detectBackFolderBtn, detectAddTask, detectTaskCancelBtn, 
+        detectTaskSubmitBtn, detectDeleteTask, detectTaskCheckbox, 
+        detectTaskClick
     }
 })();
 
@@ -196,13 +208,13 @@ const resetMainPageDetects = () => {
 
 const resetFolderPageDetects = () => {
     detectElms.detectMenuClick();
-    detectElms.detectBackBtn();
+    detectElms.detectBackHomeBtn();
     detectElms.detectAddTask();
 }
 
 const resetTaskPageDetects = () => {
     detectElms.detectMenuClick();
-    detectElms.detectBackBtn();
+    detectElms.detectBackFolderBtn();
 }
 
 export { detectElms, resetMainPageDetects, resetFolderPageDetects, resetTaskPageDetects}

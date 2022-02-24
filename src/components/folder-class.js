@@ -12,7 +12,8 @@ class Folder {
         const desc = values[2];
         const priority = values[3];
         const notes = values[4];
-        const task = new Task(name, date, desc, priority, notes);
+        const folder = values[5];
+        const task = new Task(name, date, desc, priority, notes, folder);
 
         return task;
     }
