@@ -21,6 +21,54 @@ class Task {
     getFolder = () => {
         return this.folder;
     }
+
+    getName = () => {
+        return this.name;
+    }
+
+    getDate = () => {
+        return this.date;
+    }
+
+    getDesc = () => {
+        return this.desc;
+    }
+    
+    getPriority = () => {
+        return this.priority;
+    }
+
+    getNotes = () => {
+        return this.notes;
+    }
+
+    getStatus = () => {
+        return this.status;
+    }
+
+    setName = (name) => {
+        this.name = name;
+    }
+
+    setDate = (date) => {
+        this.date = date;
+    }
+
+    setDesc = (desc) => {
+        this.desc = desc;
+    }
+    
+    setPriority = (priority) => {
+        this.priority = priority;
+    }
+
+    setNotes = (notes) => {
+        this.notes = notes;
+    }
+
+    setStatus = (status) => {
+        this.status = status;
+    }
 }
 
 export { Task }

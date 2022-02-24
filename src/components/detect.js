@@ -1,7 +1,8 @@
 import { toggleElm, toggleOpaque } from "./toggle";
 import {
     getFolderFormInfo, resetForm, removeFolderBtns,
-    renderEditFolderForm, getEditFolderInfo, getTaskFormInfo
+    renderEditFolderForm, getEditFolderInfo, getTaskFormInfo,
+    renderTaskEditForm
 } from "./forms";
 import { logicController } from "./logic";
 import { displayController } from "./display";
@@ -187,6 +188,45 @@ const detectElms = (() => {
             displayController.displayTaskPage(taskInfo);
         });
     } 
+
+    const detectEditTask = (btn) => {
+        btn.addEventListener("click", (e) => {
+            const taskContainer = getOuterContainer();
+            const taskName = getHeading();
+            const folderName = taskContainer.dataset.folder;
+            const folder = logicController.getFolderByName(folderName);
+            const task = folder.getTaskByName(taskName);
+            // taskContainer.dataset.oldName = taskName;
+            // taskContainer.dataset.oldDate = task.getDate();
+            // taskContainer.dataset.oldDesc = task.getDesc();
+            // taskContainer.dataset.oldPriority = task.getPriority();
+            // taskContainer.dataset.oldNotes = task.getNotes();
+            // taskContainer.dataset.oldStatus = task.getStatus();
+            
+            renderEditFolderForm(taskContainer, task);
+            // create a form inside this container and have placeholder text & options
+
+
+            // let btnA = e.target.parentElement;
+            // let btnDiv = btnA.parentElement;
+            // let folder = btnDiv.parentElement;
+            // let folderName = folder.children[0];
+            // let oldName = folderName.innerText;
+            // folder.dataset.oldName = oldName;
+            // removeFolderBtns(folder);
+            // renderEditFolderForm(folder);
+        });
+    }
+
+    const detectSaveEditTask = (btn) => {
+        btn.addEventListener("click", (e) => {
+            let folder = e.target.parentElement;
+            let index = folder.dataset.index;
+            let newName = getEditFolderInfo(folder);
+            let oldName = folder.dataset.oldName;
+            logicController.editFolder(index, folder, newName, oldName);
+        });
+    }
 
 
     return {

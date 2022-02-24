@@ -33,6 +33,14 @@ class Folder {
     getTaskByIndex = (index) => {
         return this.tasks[index];
     }
+
+    getTaskByName = (taskName) => {
+        for (let i = 0; i < this.tasks.size(); i++) {
+            if (this.tasks[i].name === taskName) {
+                return this.task[i];
+            }
+        }
+    }
 }
 
 export { Folder }

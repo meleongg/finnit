@@ -50,8 +50,18 @@ const validateFns = (() => {
         return false;
     }
 
+    const fillNullInputs = (values) => {
+        for (let i = 0; i < values.length; i++) {
+            if (values[i] === "") {
+                values[i] = "N/A";
+            }
+        }
+
+        return values;
+    }
+
     return { checkEmptyArr, checkDuplicate, checkEmpty, checkDefault,
-             checkNoChange };
+             checkNoChange, fillNullInputs };
 })();
 
 export { validateFns }

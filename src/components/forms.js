@@ -1,5 +1,6 @@
 import { detectElms } from "./detect";
 import { getMinDueDate } from "./date";
+import { validateFns } from "./validate";
 
 const renderFolderForm = () => {
     const newTaskContainer = document.createElement("div");
@@ -85,11 +86,6 @@ const renderEditFolderForm = (folder) => {
     folder.appendChild(saveIcon);
 
     detectElms.detectSaveEditFolder(saveIcon);
-}
-
-const resetEditFolderForm = (folder) => {
-    const nameElm = folder.children[0];
-    const name = nameElm.innerText;
 }
 
 const getEditFolderInfo = (folder) => {
@@ -215,14 +211,123 @@ const renderTaskForm = () => {
     return newTaskContainer;
 }
 
+// TODO: fix this so that it works with detect & autofills; reference folder editing
+const renderTaskEditForm = (container, task) => {
+    const renderDetails1 = (info) => {
+        const labels = ["Name:", "Deadline:", "Description:", "Priority:"];
+        const taskDetails = document.createElement("div");
+        taskDetails.classList.add("task-details-1");
+
+        // REQUIRES: all elements in info must be non-zero strings
+        for (let i = 0; i < info.length; i++) {
+            const heading = document.createElement("h3");
+            heading.classList.add("task-details1-label");
+            heading.innerText = labels[i];
+            taskDetails.appendChild(heading);
+            
+            const display = document.createElement("p");
+            display.classList.add("task-details1-display");
+            display.innerText = `${info[i][0].toUpperCase() + info[i].substring(1)}`;
+            taskDetails.appendChild(display);
+        }
+
+        return taskDetails;
+    }
+
+    const renderDetails2 = (info) => {
+        const taskDetails = document.createElement("div");
+        taskDetails.classList.add("task-details-2");
+
+        const heading = document.createElement("h3");
+        heading.classList.add("task-notes-label");
+        heading.innerText = "Notes:";
+        taskDetails.appendChild(heading);
+
+        const display = document.createElement("p");
+        display.classList.add("task-notes-display");
+        display.innerText = `${info[0].toUpperCase() + info.substring(1)}`;
+        taskDetails.appendChild(display);
+
+        return taskDetails;
+    }
+
+    const renderDetails3 = (info) => {
+        const taskDetails = document.createElement("div");
+        taskDetails.classList.add("task-details-3");
+
+        const heading = document.createElement("h3");
+        heading.classList.add("task-completed-label");
+        heading.innerText = "Status:";
+        taskDetails.appendChild(heading);
+
+        const display = document.createElement("p");
+        display.classList.add("task-completed-display");
+        if (info) {
+            display.innerText = "Complete";
+        } else {
+            display.innerText = "Incomplete";
+        }
+        taskDetails.appendChild(display);
+
+        return taskDetails;
+    }
+
+    const renderDetails = (task) => {
+        const taskDetails = document.createElement("div");
+        taskDetails.classList.add("task-details");
+
+        const section1TaskInfo = [task.name, task.date, task.desc, task.priority];
+        const section2TaskInfo = task.notes;
+        const section3TaskInfo = task.status;
+
+        const section1 = renderDetails1(section1TaskInfo);
+        taskDetails.appendChild(section1);
+        const section2 = renderDetails2(section2TaskInfo);
+        taskDetails.appendChild(section2);
+        const section3 = renderDetails3(section3TaskInfo);
+        taskDetails.appendChild(section3);
+
+        return taskDetails;
+    }
+
+    const renderFinishedBtns = () => {
+        const finishedBtns = document.createElement("div");
+        finishedBtns.classList.add("finished-btns");
+
+        const btn = document.createElement("button");
+        btn.classList.add("form-btn");
+        btn.id = "cancel-task-btn";
+        btn.type = "submit";
+        btn.innerText = "Cancel";
+        
+        finishedBtns.appendChild(btn);
+        
+        return finishedBtns;
+    }
+
+    const taskInnerContainer = document.createElement("div");
+    taskInnerContainer.classList.add("task-inner-container");
+    taskOuterContainer.appendChild(taskInnerContainer);
+    
+    const taskContent = document.createElement("div");
+    taskContent.classList.add("task-content");
+    taskInnerContainer.appendChild(taskContent);
+
+    const taskDetails = renderDetails(task);
+    taskContent.appendChild(taskDetails);
+    const btns = renderFinishedBtns();
+    taskContent.appendChild(btns);
+}
+
 const getTaskFormInfo = () => {
-    const values = [];
+    let values = [];
     const name = document.getElementById("task-name").value;
     const date = document.getElementById("task-date").value;
     const desc = document.getElementById("task-desc").value;
     const priority = document.getElementById("task-priority").selectedOptions[0].value;
     const notes = document.getElementById("task-notes").value;
     values.push(name, date, desc, priority, notes);
+    values = validateFns.fillNullInputs(values);
 
     return values;
 }
@@ -234,4 +339,4 @@ const resetForm = (id) => {
 
 export { renderFolderForm, renderTaskForm, getFolderFormInfo, 
          resetForm, removeFolderBtns, renderEditFolderForm,
-         getEditFolderInfo, getTaskFormInfo }
+         getEditFolderInfo, getTaskFormInfo, renderTaskEditForm }
