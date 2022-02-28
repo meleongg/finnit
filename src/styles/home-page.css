@@ -225,7 +225,7 @@ select, input[type="date"], textarea {
 
 .edit-delete-btns {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     width: 80px;
 }
 

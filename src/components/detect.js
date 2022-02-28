@@ -190,7 +190,7 @@ const detectElms = (() => {
     } 
 
     const detectEditTask = (btn) => {
-        btn.addEventListener("click", (e) => {
+        btn.addEventListener("click", () => {
             const taskContainer = getOuterContainer();
             const taskName = getHeading();
             const folderName = taskContainer.dataset.folder;
@@ -203,7 +203,7 @@ const detectElms = (() => {
             // taskContainer.dataset.oldNotes = task.getNotes();
             // taskContainer.dataset.oldStatus = task.getStatus();
             
-            renderEditFolderForm(taskContainer, task);
+            renderTaskEditForm(taskContainer, task);
             // create a form inside this container and have placeholder text & options
 
 
@@ -218,6 +218,16 @@ const detectElms = (() => {
         });
     }
 
+    const detectExitTask = (btn) => {
+        btn.addEventListener("click", () => {
+            const taskContainer = getOuterContainer();
+            const name = taskContainer.dataset.folder;
+            const folder = logicController.getFolderByName(name);
+            displayController.displayFolderPage(folder);
+        });
+    }
+
+    // TODO
     const detectSaveEditTask = (btn) => {
         btn.addEventListener("click", (e) => {
             let folder = e.target.parentElement;
@@ -235,7 +245,7 @@ const detectElms = (() => {
         detectSaveEditFolder, detectFolderClick, detectBackHomeBtn, 
         detectBackFolderBtn, detectAddTask, detectTaskCancelBtn, 
         detectTaskSubmitBtn, detectDeleteTask, detectTaskCheckbox, 
-        detectTaskClick
+        detectTaskClick, detectExitTask, detectEditTask
     }
 })();
 

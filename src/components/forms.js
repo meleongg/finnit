@@ -213,7 +213,17 @@ const renderTaskForm = () => {
 
 // TODO: fix this so that it works with detect & autofills; reference folder editing
 const renderTaskEditForm = (container, task) => {
-    const renderDetails1 = (info) => {
+    const renderOptions = (task) => {
+        const options = document.createElement("div");
+        const name = document.createElement("h2");
+        name.classList.add("task-name");
+        name.innerText = `${task.name[0].toUpperCase() + task.name[0].substring(1)}`;
+        options.appendChild(name);
+
+        return options;
+    }
+
+    const renderEditDetails1 = (info) => {
         const labels = ["Name:", "Deadline:", "Description:", "Priority:"];
         const taskDetails = document.createElement("div");
         taskDetails.classList.add("task-details-1");
@@ -225,16 +235,17 @@ const renderTaskEditForm = (container, task) => {
             heading.innerText = labels[i];
             taskDetails.appendChild(heading);
             
-            const display = document.createElement("p");
-            display.classList.add("task-details1-display");
-            display.innerText = `${info[i][0].toUpperCase() + info[i].substring(1)}`;
-            taskDetails.appendChild(display);
+            const input = document.createElement("input");
+            input.type = "text";
+            input.value = `${info[i][0].toUpperCase() + info[i].substring(1)}`;
+            input.classList.add("task-details1-display");
+            taskDetails.appendChild(input);
         }
 
         return taskDetails;
     }
 
-    const renderDetails2 = (info) => {
+    const renderEditDetails2 = (info) => {
         const taskDetails = document.createElement("div");
         taskDetails.classList.add("task-details-2");
 
@@ -243,15 +254,16 @@ const renderTaskEditForm = (container, task) => {
         heading.innerText = "Notes:";
         taskDetails.appendChild(heading);
 
-        const display = document.createElement("p");
-        display.classList.add("task-notes-display");
-        display.innerText = `${info[0].toUpperCase() + info.substring(1)}`;
-        taskDetails.appendChild(display);
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = `${info[0].toUpperCase() + info.substring(1)}`;
+        input.classList.add("task-notes-display");
+        taskDetails.appendChild(input);
 
         return taskDetails;
     }
 
-    const renderDetails3 = (info) => {
+    const renderEditDetails3 = (info) => {
         const taskDetails = document.createElement("div");
         taskDetails.classList.add("task-details-3");
 
@@ -260,14 +272,15 @@ const renderTaskEditForm = (container, task) => {
         heading.innerText = "Status:";
         taskDetails.appendChild(heading);
 
-        const display = document.createElement("p");
-        display.classList.add("task-completed-display");
+        const checkBox = document.createElement("input");
+        checkBox.type = "checkbox";
+        checkBox.classList.add("task-completed-display");
         if (info) {
-            display.innerText = "Complete";
+            checkBox.checked = "true";
         } else {
-            display.innerText = "Incomplete";
+            checkBox.checked = "false";
         }
-        taskDetails.appendChild(display);
+        taskDetails.appendChild(checkBox);
 
         return taskDetails;
     }
@@ -280,11 +293,11 @@ const renderTaskEditForm = (container, task) => {
         const section2TaskInfo = task.notes;
         const section3TaskInfo = task.status;
 
-        const section1 = renderDetails1(section1TaskInfo);
+        const section1 = renderEditDetails1(section1TaskInfo);
         taskDetails.appendChild(section1);
-        const section2 = renderDetails2(section2TaskInfo);
+        const section2 = renderEditDetails2(section2TaskInfo);
         taskDetails.appendChild(section2);
-        const section3 = renderDetails3(section3TaskInfo);
+        const section3 = renderEditDetails3(section3TaskInfo);
         taskDetails.appendChild(section3);
 
         return taskDetails;
@@ -294,24 +307,34 @@ const renderTaskEditForm = (container, task) => {
         const finishedBtns = document.createElement("div");
         finishedBtns.classList.add("finished-btns");
 
-        const btn = document.createElement("button");
-        btn.classList.add("form-btn");
-        btn.id = "cancel-task-btn";
-        btn.type = "submit";
-        btn.innerText = "Cancel";
+        const saveBtn = document.createElement("button");
+        saveBtn.classList.add("form-btn");
+        saveBtn.id = "save-edit-task-btn";
+        saveBtn.type = "submit";
+        saveBtn.innerText = "Save";
         
-        finishedBtns.appendChild(btn);
+        const cancelBtn = document.createElement("button");
+        cancelBtn.classList.add("form-btn");
+        cancelBtn.id = "cancel-edit-task-btn";
+        cancelBtn.type = "submit";
+        cancelBtn.innerText = "Cancel";
+        
+        finishedBtns.appendChild(saveBtn);
+        finishedBtns.appendChild(cancelBtn);
         
         return finishedBtns;
     }
 
-    const taskInnerContainer = document.createElement("div");
+    const taskInnerContainer = document.createElement("form");
     taskInnerContainer.classList.add("task-inner-container");
-    taskOuterContainer.appendChild(taskInnerContainer);
+    container.appendChild(taskInnerContainer);
     
     const taskContent = document.createElement("div");
     taskContent.classList.add("task-content");
     taskInnerContainer.appendChild(taskContent);
+
+    const options = renderOptions(task);
+    taskContent.appendChild(options);
 
     const taskDetails = renderDetails(task);
     taskContent.appendChild(taskDetails);

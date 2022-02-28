@@ -34,8 +34,9 @@ class Folder {
         return this.tasks[index];
     }
 
+    // TODO: error here when editing!
     getTaskByName = (taskName) => {
-        for (let i = 0; i < this.tasks.size(); i++) {
+        for (let i = 0; i < this.tasks.length; i++) {
             if (this.tasks[i].name === taskName) {
                 return this.task[i];
             }

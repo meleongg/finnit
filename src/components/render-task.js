@@ -1,3 +1,5 @@
+import { detectElms } from "./detect";
+
 const renderOptions = (name) => {
     const options = document.createElement("div");
     options.classList.add("options");
@@ -19,15 +21,16 @@ const renderOptions = (name) => {
     editBtnIcon.classList.add("fa-solid");
     editBtnIcon.classList.add("fa-pen-to-square");
     editBtnA.appendChild(editBtnIcon);
+    detectElms.detectEditTask(editBtnIcon);
     
-    const delBtnA = document.createElement("a");
-    delBtnA.id = "delete-task-btn";
-    editDelBtns.appendChild(delBtnA);
+    // const delBtnA = document.createElement("a");
+    // delBtnA.id = "delete-task-btn";
+    // editDelBtns.appendChild(delBtnA);
 
-    const delBtnIcon = document.createElement("i");
-    delBtnIcon.classList.add("fa-solid");
-    delBtnIcon.classList.add("fa-trash-can");
-    delBtnA.appendChild(delBtnIcon);
+    // const delBtnIcon = document.createElement("i");
+    // delBtnIcon.classList.add("fa-solid");
+    // delBtnIcon.classList.add("fa-trash-can");
+    // delBtnA.appendChild(delBtnIcon);
 
     return options;
 }
@@ -115,9 +118,11 @@ const renderFinishedBtns = () => {
 
     const btn = document.createElement("button");
     btn.classList.add("form-btn");
-    btn.id = "cancel-task-btn";
+    btn.id = "done-task-btn";
     btn.type = "submit";
-    btn.innerText = "Cancel";
+    btn.innerText = "Done";
+    detectElms.detectExitTask(btn);
+    
 
     finishedBtns.appendChild(btn);
 
