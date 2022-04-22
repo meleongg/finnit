@@ -37,10 +37,6 @@ const displayController = (() => {
         resetTaskPageDetects();
     }
     
-    // TODO: create another js file to detect all events 
-    // TODO: create another js file to handle displayControl? 
-    //    - calls renderMainPage, renderTask, etc.
-    
     return { displayHeader, displayMainPage, displayFolderPage, displayTaskPage };
 })();
 

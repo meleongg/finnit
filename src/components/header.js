@@ -17,31 +17,31 @@ const renderHeader = (content) => {
         logoContainer.id = "logo-li";
         logoContainer.classList.add("nav-item");
         const logo = new Image();
-        logo.src = LogoHalf; 
+        logo.src = LogoFull; 
         // TODO: change logo based on screen size
         logoContainer.appendChild(logo);
 
         return logoContainer;
     };
 
-    const _renderSearchBar = () => {
-        const searchBar = document.createElement("li");
-        searchBar.id = "search-bar-li";
-        searchBar.classList.add("nav-item");
+    // const _renderSearchBar = () => {
+    //     const searchBar = document.createElement("li");
+    //     searchBar.id = "search-bar-li";
+    //     searchBar.classList.add("nav-item");
 
-        const searchInput = document.createElement("input");
-        searchInput.id = "search";
-        searchInput.type = "text";
-        searchInput.placeholder = "Search..";
-        searchBar.appendChild(searchInput);
+    //     const searchInput = document.createElement("input");
+    //     searchInput.id = "search";
+    //     searchInput.type = "text";
+    //     searchInput.placeholder = "Search..";
+    //     searchBar.appendChild(searchInput);
 
-        const searchIcon = document.createElement("i");
-        searchIcon.classList.add("fas");
-        searchIcon.classList.add("fa-search");
-        searchBar.appendChild(searchIcon);
+    //     const searchIcon = document.createElement("i");
+    //     searchIcon.classList.add("fas");
+    //     searchIcon.classList.add("fa-search");
+    //     searchBar.appendChild(searchIcon);
 
-        return searchBar;
-    }
+    //     return searchBar;
+    // }
 
     const _renderMenuToggle = () => {
         const menuToggle = document.createElement("li");
@@ -60,8 +60,8 @@ const renderHeader = (content) => {
     const logo = _renderLogo();
     navItems.appendChild(logo);
 
-    const searchBar = _renderSearchBar();
-    navItems.appendChild(searchBar);
+    // const searchBar = _renderSearchBar();
+    // navItems.appendChild(searchBar);
 
     const menuToggle = _renderMenuToggle();
     navItems.appendChild(menuToggle);

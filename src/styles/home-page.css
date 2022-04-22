@@ -37,7 +37,7 @@ button:hover, a:hover, #menu-toggle-btn:hover {
 }
 
 #logo-li img {
-    width: 50px;
+    width: 120px;
     height: 50px;
 }
 
@@ -287,4 +287,28 @@ select, input[type="date"], textarea {
     display: flex;
     justify-content: center;
     align-content: center;
+}
+
+@media only screen and (min-width: 1200px){
+    /*Tablets [601px -> 1200px]*/
+    #menu {
+        width: 30%;
+    }
+
+    #opaque {
+        left: 30%;
+        width: 70% !important;
+    }
+
+    .add-btn {
+        right: 25px;
+    }
+
+    .back-btn {
+        left: 25px;
+    }
+
+    #new-task-form {
+        width: 50%;
+    }
 }
