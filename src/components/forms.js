@@ -211,36 +211,98 @@ const renderTaskForm = () => {
     return newTaskContainer;
 }
 
-// TODO: fix this so that it works with detect & autofills; reference folder editing
+
 const renderTaskEditForm = (container, task) => {
+    container.innerHTML = "";
+
     const renderOptions = (task) => {
         const options = document.createElement("div");
         const name = document.createElement("h2");
         name.classList.add("task-name");
-        name.innerText = `${task.name[0].toUpperCase() + task.name[0].substring(1)}`;
+        name.innerText = task.name;
         options.appendChild(name);
 
         return options;
     }
 
+    const renderNameSection = (info, taskContainer) => {
+        const heading = document.createElement("h3");
+        heading.classList.add("task-details1-label");
+        heading.innerText = "Name:";
+        taskContainer.appendChild(heading);
+        
+        const input = document.createElement("input");
+        input.type = "text";
+        input.id = "edit-task-name";
+        input.value = info;
+        input.classList.add("task-details1-display");
+        taskContainer.appendChild(input);
+    }
+
+    const renderDateSection = (taskContainer) => {
+        const dateLabel = document.createElement("label");
+        dateLabel.for = "task-date";
+        dateLabel.innerText = "Due Date";
+        taskContainer.appendChild(dateLabel);
+
+        const dateInput = document.createElement("input");
+        dateInput.type = "date";
+        dateInput.name = "task-date";
+        dateInput.id = "edit-task-date";
+        dateInput.placeholder = "Due date..";
+        dateInput.min = getMinDueDate();
+        taskContainer.appendChild(dateInput);
+    }
+
+    const renderDescriptionSection = (info, taskContainer) => {
+        const heading = document.createElement("h3");
+        heading.classList.add("task-details1-label");
+        heading.innerText = "Description:";
+        taskContainer.appendChild(heading);
+        
+        const input = document.createElement("input");
+        input.type = "text";
+        input.id = "edit-task-desc";
+        input.value = info;
+        input.classList.add("task-details1-display");
+        taskContainer.appendChild(input);
+    }
+
+    const renderPrioritySection = (taskContainer) => {
+        const priorityLabel = document.createElement("label");
+        priorityLabel.for = "task-priority";
+        priorityLabel.innerText = "Priority:";
+        taskContainer.appendChild(priorityLabel);
+
+        const priority = document.createElement("select");
+        priority.name = "task-priority";
+        priority.id = "edit-task-priority";
+        taskContainer.appendChild(priority);
+
+        const urgentOption = document.createElement("option");
+        urgentOption.value = "urgent";
+        urgentOption.innerText = "Urgent";
+        priority.appendChild(urgentOption);
+
+        const semiUrgentOption = document.createElement("option");
+        semiUrgentOption.value = "semi-urgent";
+        semiUrgentOption.innerText = "Semi-Urgent";
+        priority.appendChild(semiUrgentOption);
+
+        const notUrgentOption = document.createElement("option");
+        notUrgentOption.value = "not-urgent";
+        notUrgentOption.innerText = "Not Urgent";
+        priority.appendChild(notUrgentOption);
+    }
+
     const renderEditDetails1 = (info) => {
-        const labels = ["Name:", "Deadline:", "Description:", "Priority:"];
         const taskDetails = document.createElement("div");
         taskDetails.classList.add("task-details-1");
-
-        // REQUIRES: all elements in info must be non-zero strings
-        for (let i = 0; i < info.length; i++) {
-            const heading = document.createElement("h3");
-            heading.classList.add("task-details1-label");
-            heading.innerText = labels[i];
-            taskDetails.appendChild(heading);
-            
-            const input = document.createElement("input");
-            input.type = "text";
-            input.value = `${info[i][0].toUpperCase() + info[i].substring(1)}`;
-            input.classList.add("task-details1-display");
-            taskDetails.appendChild(input);
-        }
+        
+        renderNameSection(info[0], taskDetails);
+        renderDateSection(taskDetails);
+        renderDescriptionSection(info[2], taskDetails);
+        renderPrioritySection(taskDetails);
 
         return taskDetails;
     }
@@ -256,7 +318,8 @@ const renderTaskEditForm = (container, task) => {
 
         const input = document.createElement("input");
         input.type = "text";
-        input.value = `${info[0].toUpperCase() + info.substring(1)}`;
+        input.id = "edit-task-notes";
+        input.value = info;
         input.classList.add("task-notes-display");
         taskDetails.appendChild(input);
 
@@ -274,6 +337,7 @@ const renderTaskEditForm = (container, task) => {
 
         const checkBox = document.createElement("input");
         checkBox.type = "checkbox";
+        checkBox.id = "edit-task-status";
         checkBox.classList.add("task-completed-display");
         if (info) {
             checkBox.checked = "true";
@@ -305,19 +369,23 @@ const renderTaskEditForm = (container, task) => {
 
     const renderFinishedBtns = () => {
         const finishedBtns = document.createElement("div");
-        finishedBtns.classList.add("finished-btns");
+        finishedBtns.classList.add("edit-task-finished-btns");
 
         const saveBtn = document.createElement("button");
         saveBtn.classList.add("form-btn");
         saveBtn.id = "save-edit-task-btn";
         saveBtn.type = "submit";
         saveBtn.innerText = "Save";
+
+        detectElms.detectSaveEditTask(saveBtn);
         
         const cancelBtn = document.createElement("button");
         cancelBtn.classList.add("form-btn");
         cancelBtn.id = "cancel-edit-task-btn";
         cancelBtn.type = "submit";
         cancelBtn.innerText = "Cancel";
+
+        detectElms.detectCancelEditTask(cancelBtn);
         
         finishedBtns.appendChild(saveBtn);
         finishedBtns.appendChild(cancelBtn);
@@ -342,6 +410,22 @@ const renderTaskEditForm = (container, task) => {
     taskContent.appendChild(btns);
 }
 
+const getEditTaskInfo = (form) => {
+    let values = [];
+
+    const name = document.getElementById("edit-task-name").value;
+    const date = document.getElementById("edit-task-date").value;
+    const desc = document.getElementById("edit-task-desc").value;
+    const priority = document.getElementById("edit-task-priority").selectedOptions[0].value;
+    const notes = document.getElementById("edit-task-notes").value;
+    const status = document.getElementById("edit-task-status").checked;
+
+    values.push(name, date, desc, priority, notes, status);
+    values = validateFns.fillNullInputs(values);
+
+    return values; 
+}
+
 const getTaskFormInfo = () => {
     let values = [];
     const name = document.getElementById("task-name").value;
@@ -362,4 +446,5 @@ const resetForm = (id) => {
 
 export { renderFolderForm, renderTaskForm, getFolderFormInfo, 
          resetForm, removeFolderBtns, renderEditFolderForm,
-         getEditFolderInfo, getTaskFormInfo, renderTaskEditForm }
+         getEditFolderInfo, getTaskFormInfo, renderTaskEditForm,
+         getEditTaskInfo }

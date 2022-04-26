@@ -8,9 +8,7 @@ import { removeFolder } from "./render-folders";
 const logicController = (() => {
     const defaultFolder = new Folder("Inbox", []);
     let _folders = [defaultFolder];
-    // TODO: create new module dedicated to producing folder objs
-    // with a name & listed tasks
-
+    
     const addFolder = (name) => {
         if (validateFns.checkEmptyArr(_folders)) {
             let newFolder = new Folder(name, []);
@@ -52,7 +50,6 @@ const logicController = (() => {
             throwError(`Cannot delete ${_folders[index].name}!`)
         } else {
             _folders.splice(index, 1);
-            // removeFolder(folder); redundant
             displayController.displayMainPage(_folders);
         }
     }

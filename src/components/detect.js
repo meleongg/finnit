@@ -2,7 +2,7 @@ import { toggleElm, toggleOpaque } from "./toggle";
 import {
     getFolderFormInfo, resetForm, removeFolderBtns,
     renderEditFolderForm, getEditFolderInfo, getTaskFormInfo,
-    renderTaskEditForm
+    renderTaskEditForm, getEditTaskInfo
 } from "./forms";
 import { logicController } from "./logic";
 import { displayController } from "./display";
@@ -192,29 +192,12 @@ const detectElms = (() => {
     const detectEditTask = (btn) => {
         btn.addEventListener("click", () => {
             const taskContainer = getOuterContainer();
-            const taskName = getHeading();
+            let nameElm = document.getElementsByClassName("task-name")[0];
+            let taskName = nameElm.innerText;
             const folderName = taskContainer.dataset.folder;
             const folder = logicController.getFolderByName(folderName);
             const task = folder.getTaskByName(taskName);
-            // taskContainer.dataset.oldName = taskName;
-            // taskContainer.dataset.oldDate = task.getDate();
-            // taskContainer.dataset.oldDesc = task.getDesc();
-            // taskContainer.dataset.oldPriority = task.getPriority();
-            // taskContainer.dataset.oldNotes = task.getNotes();
-            // taskContainer.dataset.oldStatus = task.getStatus();
-            
             renderTaskEditForm(taskContainer, task);
-            // create a form inside this container and have placeholder text & options
-
-
-            // let btnA = e.target.parentElement;
-            // let btnDiv = btnA.parentElement;
-            // let folder = btnDiv.parentElement;
-            // let folderName = folder.children[0];
-            // let oldName = folderName.innerText;
-            // folder.dataset.oldName = oldName;
-            // removeFolderBtns(folder);
-            // renderEditFolderForm(folder);
         });
     }
 
@@ -227,14 +210,40 @@ const detectElms = (() => {
         });
     }
 
+    const detectCancelEditTask = (btn) => {
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            let outerContainer = document.getElementsByClassName("task-outer-container")[0];
+            let innerContainer = document.getElementsByClassName("task-inner-container")[0];
+
+            outerContainer.display = "none";
+            innerContainer.reset(); 
+
+            let folderName = outerContainer.dataset.folder;
+            let folderObj = logicController.getFolderByName(folderName);
+
+            logicController.refreshFolderPage(folderObj);
+        });
+    }
+
     // TODO
     const detectSaveEditTask = (btn) => {
         btn.addEventListener("click", (e) => {
-            let folder = e.target.parentElement;
-            let index = folder.dataset.index;
-            let newName = getEditFolderInfo(folder);
-            let oldName = folder.dataset.oldName;
-            logicController.editFolder(index, folder, newName, oldName);
+            e.preventDefault();
+            let outerContainer = document.getElementsByClassName("task-outer-container")[0];
+            let folderName = outerContainer.dataset.folder;
+            let folderObj = logicController.getFolderByName(folderName);
+
+            let taskName = document.getElementsByClassName("task-name")[0].innerText;
+            let taskObj = folderObj.getTaskByName(taskName);
+
+            let newVals = getEditTaskInfo();
+            folderObj.editTask(taskObj, newVals);
+
+            let innerContainer = document.getElementsByClassName("task-inner-container")[0];
+            innerContainer.reset(); 
+
+            logicController.refreshFolderPage(folderObj);
         });
     }
 
@@ -245,7 +254,8 @@ const detectElms = (() => {
         detectSaveEditFolder, detectFolderClick, detectBackHomeBtn, 
         detectBackFolderBtn, detectAddTask, detectTaskCancelBtn, 
         detectTaskSubmitBtn, detectDeleteTask, detectTaskCheckbox, 
-        detectTaskClick, detectExitTask, detectEditTask
+        detectTaskClick, detectExitTask, detectEditTask,
+        detectCancelEditTask, detectSaveEditTask
     }
 })();
 

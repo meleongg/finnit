@@ -4,6 +4,7 @@ import { renderFolderForm } from "./forms";
 import { renderFolders } from "./render-folders";
 
 const renderMainPage = (content, folders) => {
+
     const menu = renderMenu();
     const opaque = document.createElement("div");
     opaque.id = "opaque";

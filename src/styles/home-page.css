@@ -289,6 +289,14 @@ select, input[type="date"], textarea {
     align-content: center;
 }
 
+/* Edit Task */
+.edit-task-finished-btns {
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+}
+
 @media only screen and (min-width: 1200px){
     /*Tablets [601px -> 1200px]*/
     #menu {

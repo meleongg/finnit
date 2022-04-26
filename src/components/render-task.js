@@ -22,15 +22,6 @@ const renderOptions = (name) => {
     editBtnIcon.classList.add("fa-pen-to-square");
     editBtnA.appendChild(editBtnIcon);
     detectElms.detectEditTask(editBtnIcon);
-    
-    // const delBtnA = document.createElement("a");
-    // delBtnA.id = "delete-task-btn";
-    // editDelBtns.appendChild(delBtnA);
-
-    // const delBtnIcon = document.createElement("i");
-    // delBtnIcon.classList.add("fa-solid");
-    // delBtnIcon.classList.add("fa-trash-can");
-    // delBtnA.appendChild(delBtnIcon);
 
     return options;
 }
@@ -49,7 +40,7 @@ const renderDetails1 = (info) => {
         
         const display = document.createElement("p");
         display.classList.add("task-details1-display");
-        display.innerText = `${info[i][0].toUpperCase() + info[i].substring(1)}`;
+        display.innerText = info[i];
         taskDetails.appendChild(display);
     }
 

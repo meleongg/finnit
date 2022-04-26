@@ -26,6 +26,22 @@ class Folder {
         this.tasks.push(task);
     }
 
+    editTask = (task, vals) => {
+        let name = vals[0];
+        let date = vals[1];
+        let desc = vals[2];
+        let priority = vals[3];
+        let notes = vals[4];
+        let status = vals[5];
+
+        task.name = name;
+        task.date = date; 
+        task.desc = desc; 
+        task.priority = priority; 
+        task.notes = notes; 
+        task.status = status; 
+    }
+
     deleteTask = (index) => {
         this.tasks.splice(index, 1);
     }
@@ -34,11 +50,10 @@ class Folder {
         return this.tasks[index];
     }
 
-    // TODO: error here when editing!
     getTaskByName = (taskName) => {
         for (let i = 0; i < this.tasks.length; i++) {
             if (this.tasks[i].name === taskName) {
-                return this.task[i];
+                return this.tasks[i];
             }
         }
     }
