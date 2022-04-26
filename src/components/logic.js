@@ -112,8 +112,6 @@ const logicController = (() => {
 
     const updateLocalStorage = () => {
         localStorage.setItem('folders', JSON.stringify(_folders));
-        // _folders = JSON.parse(localStorage.getItem('folders'));
-        // console.log(_folders);
     }
 
     const refreshFolderPage = (folder) => {
@@ -149,7 +147,6 @@ const logicController = (() => {
     const getTaskByTaskName = (taskName) => {
         for (let i = 0; i < _folders.length; i++) {
             for (let j = 0; j < _folders[i].tasks.length; j++) {
-                console.log(_folders[i].tasks[j].name === taskName)
                 if (_folders[i].tasks[j].name === taskName) {
                     return _folders[i].tasks[j];
                 }

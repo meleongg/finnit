@@ -118,7 +118,8 @@ const detectElms = (() => {
     
     const detectAddTask = () => {
         const btn = document.getElementById("add-task-btn");
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
             toggleElm("add-task-btn");
             toggleElm("task-form"); 
             detectTaskCancelBtn();
@@ -126,14 +127,19 @@ const detectElms = (() => {
         });
     }
 
+    let hasListener = false; 
+
     const detectTaskCancelBtn = () => {
         const btn = document.getElementById("cancel-task-btn");
-        btn.addEventListener("click", (e) => {
-            e.preventDefault();
-            resetForm("new-task-form");
-            toggleElm("task-form");
-            toggleElm("add-task-btn");
-        });
+        if (!hasListener) {
+            btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                resetForm("new-task-form");
+                toggleElm("task-form");
+                toggleElm("add-task-btn");
+            });
+            hasListener = true; 
+        }
     }
 
     const detectTaskSubmitBtn = () => {
@@ -203,7 +209,6 @@ const detectElms = (() => {
 
     const detectExitTask = (btn) => {
         btn.addEventListener("click", () => {
-            const taskContainer = getOuterContainer();
             const taskName = getHeading();
             const folder = logicController.getFolderByTaskName(taskName);
             displayController.displayFolderPage(folder);

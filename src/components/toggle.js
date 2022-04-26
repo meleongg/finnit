@@ -6,6 +6,7 @@ const toggleElm = (id) => {
     let display = window.getComputedStyle(elm).display;
 
     if (display !== "none") {
+        console.log(display);
         elm.style.display = "none";
     } else if (flexElms.includes(id)) {
         elm.style.display = "flex";
