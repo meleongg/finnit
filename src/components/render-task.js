@@ -58,7 +58,7 @@ const renderDetails2 = (info) => {
 
     const display = document.createElement("p");
     display.classList.add("task-notes-display");
-    display.innerText = `${info[0].toUpperCase() + info.substring(1)}`;
+    display.innerText = info;
     taskDetails.appendChild(display);
 
     return taskDetails;

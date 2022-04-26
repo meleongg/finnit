@@ -3,7 +3,6 @@ import { resetForm } from "./forms";
 import { displayController } from "./display";
 import { validateFns } from "./validate";
 import { Folder } from "./folder-class";
-import { removeFolder } from "./render-folders";
 import { storageAvailable } from "../persistence/check-local-storage";
 import { Task } from "./task-class";
 
@@ -16,7 +15,7 @@ const logicController = (() => {
 
     const initializeFolders = () => {
         if (storageAvailable('localStorage')) {
-            if (localStorage.length > 1) {
+            if (localStorage.getItem('folders')) {
                 _tempFetch = JSON.parse(localStorage.getItem('folders'));
                 parseFirstFetch(_tempFetch);
             } else {
@@ -81,14 +80,34 @@ const logicController = (() => {
     }
 
     const parseFirstFetch = (parsedObject) => {
-        _folders = parsedObject.map(({ name, tasks }) => { 
+        let tempFolders = [];
+
+        for (let i = 0; i < parsedObject.length; i++) {
+            let folderName = parsedObject[i].name; 
+            let tasks = parsedObject[i].tasks; 
             let tempTasks = [];
-            tasks.map(({ name, date, desc, priority, notes, status, folder}) => {
-                let tempTask = new Task(name, date, desc, priority, notes, status, folder);
-                tempTasks.push(tempTask);
-            });
-            new Folder(name, tempTasks);
-        });
+
+            if (typeof tasks !== 'undefined' && tasks.length !== 0) {
+                for (let j = 0; j < tasks.length; j++) {
+                    let taskName = tasks[j].name;
+                    let taskDate = tasks[j].date;
+                    let taskDesc = tasks[j].desc;
+                    let taskPriority = tasks[j].priority;
+                    let taskNotes = tasks[j].notes;
+                    let taskStatus = tasks[j].status;
+                    let taskFolder = tasks[j].folder;
+
+                    let tempTask = new Task(taskName, taskDate, taskDesc, taskPriority, taskNotes, taskStatus, taskFolder);
+
+                    tempTasks.push(tempTask);
+                }
+            } 
+
+            let tempFolder = new Folder(folderName, tempTasks);
+            tempFolders.push(tempFolder);
+        }
+
+        _folders = tempFolders; 
     }
 
     const updateLocalStorage = () => {
@@ -117,8 +136,29 @@ const logicController = (() => {
         }
     }
 
+    const getFolderByTaskName = (taskName) => {
+        for (let i = 0; i < _folders.length; i++) {
+            for (let j = 0; j < _folders[i].tasks.length; j++) {
+                if (_folders[i].tasks[j].name === taskName) {
+                    return _folders[i];
+                }
+            }
+        }
+    }
+
+    const getTaskByTaskName = (taskName) => {
+        for (let i = 0; i < _folders.length; i++) {
+            for (let j = 0; j < _folders[i].tasks.length; j++) {
+                console.log(_folders[i].tasks[j].name === taskName)
+                if (_folders[i].tasks[j].name === taskName) {
+                    return _folders[i].tasks[j];
+                }
+            }
+        }
+    }
+
     return { initializeFolders, addFolder, deleteFolder, editFolder, getFolders, 
-             getFolder, refreshFolderPage, getFolderByName, updateLocalStorage }
+             getFolder, refreshFolderPage, getFolderByName, getFolderByTaskName, updateLocalStorage, getTaskByTaskName }
 })();
 
 export { logicController }

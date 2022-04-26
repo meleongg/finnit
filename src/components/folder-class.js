@@ -13,7 +13,7 @@ class Folder {
         const priority = values[3];
         const notes = values[4];
         const folder = values[5];
-        const task = new Task(name, date, desc, priority, notes, folder);
+        const task = new Task(name, date, desc, priority, notes, "unchecked", folder);
 
         return task;
     }

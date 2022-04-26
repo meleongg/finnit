@@ -111,8 +111,10 @@ const detectElms = (() => {
         const btn = document.getElementById("back-btn");
         btn.addEventListener("click", () => {
             const taskContainer = getOuterContainer();
-            const name = taskContainer.dataset.folder;
-            const folder = logicController.getFolderByName(name);
+            const taskName = getHeading(); 
+            const folder = logicController.getFolderByTaskName(taskName);
+            // const name = taskContainer.dataset.folder;
+            // const folder = logicController.getFolderByName(name);
             displayController.displayFolderPage(folder);
         });
     }
@@ -196,9 +198,13 @@ const detectElms = (() => {
             const taskContainer = getOuterContainer();
             let nameElm = document.getElementsByClassName("task-name")[0];
             let taskName = nameElm.innerText;
-            const folderName = taskContainer.dataset.folder;
-            const folder = logicController.getFolderByName(folderName);
-            const task = folder.getTaskByName(taskName);
+
+            // const folder = logicController.getFolderByTaskName(taskName);
+            // const folderName = taskContainer.dataset.folder;
+            // const folder = logicController.getFolderByName(folderName);
+
+            const task = logicController.getTaskByTaskName(taskName);
+            // const task = folder.getTaskByName(taskName);
             renderTaskEditForm(taskContainer, task);
         });
     }
@@ -206,8 +212,10 @@ const detectElms = (() => {
     const detectExitTask = (btn) => {
         btn.addEventListener("click", () => {
             const taskContainer = getOuterContainer();
-            const name = taskContainer.dataset.folder;
-            const folder = logicController.getFolderByName(name);
+            const taskName = getHeading();
+            const folder = logicController.getFolderByTaskName(taskName);
+            // const name = taskContainer.dataset.folder;
+            // const folder = logicController.getFolderByName(name);
             displayController.displayFolderPage(folder);
         });
     }
@@ -218,11 +226,14 @@ const detectElms = (() => {
             let outerContainer = document.getElementsByClassName("task-outer-container")[0];
             let innerContainer = document.getElementsByClassName("task-inner-container")[0];
 
+            let taskName = getHeading();
+            let folderObj = logicController.getFolderByTaskName(taskName);
+
             outerContainer.display = "none";
             innerContainer.reset(); 
 
-            let folderName = outerContainer.dataset.folder;
-            let folderObj = logicController.getFolderByName(folderName);
+            // let folderName = outerContainer.dataset.folder;
+            // let folderObj = logicController.getFolderByName(folderName);
 
             logicController.refreshFolderPage(folderObj);
         });
@@ -232,11 +243,16 @@ const detectElms = (() => {
         btn.addEventListener("click", (e) => {
             e.preventDefault();
             let outerContainer = document.getElementsByClassName("task-outer-container")[0];
-            let folderName = outerContainer.dataset.folder;
-            let folderObj = logicController.getFolderByName(folderName);
 
-            let taskName = document.getElementsByClassName("task-name")[0].innerText;
-            let taskObj = folderObj.getTaskByName(taskName);
+            let taskName = getHeading();
+            let folderObj = logicController.getFolderByTaskName(taskName);
+
+            // let folderName = outerContainer.dataset.folder;
+            // let folderObj = logicController.getFolderByName(folderName);
+
+            // let taskName = document.getElementsByClassName("task-name")[0].innerText;
+            // let taskObj = folderObj.getTaskByName(taskName);
+            let taskObj = logicController.getTaskByTaskName(taskName);
 
             let newVals = getEditTaskInfo();
             folderObj.editTask(taskObj, newVals);
