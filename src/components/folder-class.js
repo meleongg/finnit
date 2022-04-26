@@ -18,6 +18,10 @@ class Folder {
         return task;
     }
 
+    parseTasks = (parsedObjects) => {
+        
+    }
+
     updateTaskStatus = (index) => {
         this.tasks[index].toggleStatus();
     }

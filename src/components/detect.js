@@ -93,7 +93,6 @@ const detectElms = (() => {
     const detectFolderClick = (headingElm) => {
         headingElm.addEventListener("click", (e) => {
             let folder = e.target.parentElement;
-            // let folderName = folder.innerText;
             let index = folder.dataset.index;
             const folderInfo = logicController.getFolder(index);
             displayController.displayFolderPage(folderInfo);
@@ -150,7 +149,8 @@ const detectElms = (() => {
             let folder = logicController.getFolderByName(heading);
             info.push(folder.name);
             let task = folder.createTask(info);
-            folder.addTask(task);
+            folder.addTask(task); 
+            logicController.updateLocalStorage();
             logicController.refreshFolderPage(folder);
         });
     }
@@ -163,6 +163,7 @@ const detectElms = (() => {
             let heading = getHeading();
             let folder = logicController.getFolderByName(heading);
             folder.deleteTask(index);
+            logicController.updateLocalStorage();
             logicController.refreshFolderPage(folder);
         });
     }
@@ -174,6 +175,7 @@ const detectElms = (() => {
             let heading = getHeading();
             let folder = logicController.getFolderByName(heading);
             folder.updateTaskStatus(index);
+            logicController.updateLocalStorage();
             logicController.refreshFolderPage(folder);
         });
     }
@@ -226,7 +228,6 @@ const detectElms = (() => {
         });
     }
 
-    // TODO
     const detectSaveEditTask = (btn) => {
         btn.addEventListener("click", (e) => {
             e.preventDefault();
@@ -239,6 +240,8 @@ const detectElms = (() => {
 
             let newVals = getEditTaskInfo();
             folderObj.editTask(taskObj, newVals);
+
+            logicController.updateLocalStorage();
 
             let innerContainer = document.getElementsByClassName("task-inner-container")[0];
             innerContainer.reset(); 

@@ -5,7 +5,8 @@ const renderHeading = (type, needAddBtn) => {
 
     const headingTitle = document.createElement("h1");
     headingTitle.classList.add("heading-title");
-    headingTitle.innerText = `${type[0].toUpperCase() + type.substring(1)}`;
+    // headingTitle.innerText = `${type[0].toUpperCase() + type.substring(1)}`;
+    headingTitle.innerText = type;
     heading.appendChild(headingTitle);
 
     if (type !== "folders") {

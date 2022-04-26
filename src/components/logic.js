@@ -4,15 +4,37 @@ import { displayController } from "./display";
 import { validateFns } from "./validate";
 import { Folder } from "./folder-class";
 import { removeFolder } from "./render-folders";
+import { storageAvailable } from "../persistence/check-local-storage";
+import { Task } from "./task-class";
 
 const logicController = (() => {
     const defaultFolder = new Folder("Inbox", []);
-    let _folders = [defaultFolder];
+
+    let _tempFetch = [];
+
+    let _folders = [];
+
+    const initializeFolders = () => {
+        if (storageAvailable('localStorage')) {
+            if (localStorage.length > 1) {
+                _tempFetch = JSON.parse(localStorage.getItem('folders'));
+                parseFirstFetch(_tempFetch);
+            } else {
+                _folders.push(defaultFolder);
+                updateLocalStorage();
+            }
+        } else {
+            _folders.push(defaultFolder);
+        }
+
+        displayController.displayMainPage(_folders);
+    }
     
     const addFolder = (name) => {
         if (validateFns.checkEmptyArr(_folders)) {
             let newFolder = new Folder(name, []);
             _folders.push(newFolder);
+            updateLocalStorage();
             displayController.displayMainPage(_folders);
         } else {
             if (validateFns.checkDuplicate(name, _folders)) {
@@ -24,6 +46,7 @@ const logicController = (() => {
             } else {
                 let newFolder = new Folder(name, []);
                 _folders.push(newFolder);
+                updateLocalStorage();
                 displayController.displayMainPage(_folders);
             }
         }
@@ -32,6 +55,7 @@ const logicController = (() => {
     const editFolder = (index, folder, newName, oldName) => {
         if (validateFns.checkNoChange(newName, oldName)) {
             _folders[index].name = newName;
+            updateLocalStorage();
             displayController.displayMainPage(_folders);
         } else {
             if (validateFns.checkDuplicate(newName, _folders)) {
@@ -40,6 +64,7 @@ const logicController = (() => {
                 throwError("Folder name cannot be empty!");
             } else {
                 _folders[index].name = newName;
+                updateLocalStorage();
                 displayController.displayMainPage(_folders);
             }
         }
@@ -47,11 +72,29 @@ const logicController = (() => {
 
     const deleteFolder = (index, folder) => {
         if (validateFns.checkDefault(index)) {
-            throwError(`Cannot delete ${_folders[index].name}!`)
+            throwError(`Cannot delete ${_folders[index].name}!`);
         } else {
             _folders.splice(index, 1);
+            updateLocalStorage();
             displayController.displayMainPage(_folders);
         }
+    }
+
+    const parseFirstFetch = (parsedObject) => {
+        _folders = parsedObject.map(({ name, tasks }) => { 
+            let tempTasks = [];
+            tasks.map(({ name, date, desc, priority, notes, status, folder}) => {
+                let tempTask = new Task(name, date, desc, priority, notes, status, folder);
+                tempTasks.push(tempTask);
+            });
+            new Folder(name, tempTasks);
+        });
+    }
+
+    const updateLocalStorage = () => {
+        localStorage.setItem('folders', JSON.stringify(_folders));
+        // _folders = JSON.parse(localStorage.getItem('folders'));
+        // console.log(_folders);
     }
 
     const refreshFolderPage = (folder) => {
@@ -74,8 +117,8 @@ const logicController = (() => {
         }
     }
 
-    return { addFolder, deleteFolder, editFolder, getFolders, getFolder,
-             refreshFolderPage, getFolderByName }
+    return { initializeFolders, addFolder, deleteFolder, editFolder, getFolders, 
+             getFolder, refreshFolderPage, getFolderByName, updateLocalStorage }
 })();
 
 export { logicController }
