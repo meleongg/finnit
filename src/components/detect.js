@@ -110,11 +110,8 @@ const detectElms = (() => {
     const detectBackFolderBtn = () => {
         const btn = document.getElementById("back-btn");
         btn.addEventListener("click", () => {
-            const taskContainer = getOuterContainer();
             const taskName = getHeading(); 
             const folder = logicController.getFolderByTaskName(taskName);
-            // const name = taskContainer.dataset.folder;
-            // const folder = logicController.getFolderByName(name);
             displayController.displayFolderPage(folder);
         });
     }
@@ -199,12 +196,7 @@ const detectElms = (() => {
             let nameElm = document.getElementsByClassName("task-name")[0];
             let taskName = nameElm.innerText;
 
-            // const folder = logicController.getFolderByTaskName(taskName);
-            // const folderName = taskContainer.dataset.folder;
-            // const folder = logicController.getFolderByName(folderName);
-
             const task = logicController.getTaskByTaskName(taskName);
-            // const task = folder.getTaskByName(taskName);
             renderTaskEditForm(taskContainer, task);
         });
     }
@@ -214,8 +206,6 @@ const detectElms = (() => {
             const taskContainer = getOuterContainer();
             const taskName = getHeading();
             const folder = logicController.getFolderByTaskName(taskName);
-            // const name = taskContainer.dataset.folder;
-            // const folder = logicController.getFolderByName(name);
             displayController.displayFolderPage(folder);
         });
     }
@@ -232,9 +222,6 @@ const detectElms = (() => {
             outerContainer.display = "none";
             innerContainer.reset(); 
 
-            // let folderName = outerContainer.dataset.folder;
-            // let folderObj = logicController.getFolderByName(folderName);
-
             logicController.refreshFolderPage(folderObj);
         });
     }
@@ -242,16 +229,8 @@ const detectElms = (() => {
     const detectSaveEditTask = (btn) => {
         btn.addEventListener("click", (e) => {
             e.preventDefault();
-            let outerContainer = document.getElementsByClassName("task-outer-container")[0];
-
             let taskName = getHeading();
             let folderObj = logicController.getFolderByTaskName(taskName);
-
-            // let folderName = outerContainer.dataset.folder;
-            // let folderObj = logicController.getFolderByName(folderName);
-
-            // let taskName = document.getElementsByClassName("task-name")[0].innerText;
-            // let taskObj = folderObj.getTaskByName(taskName);
             let taskObj = logicController.getTaskByTaskName(taskName);
 
             let newVals = getEditTaskInfo();
