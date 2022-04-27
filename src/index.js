@@ -2,8 +2,6 @@ import "./styles/reset.css";
 import "./styles/home-page.css";
 import { displayController } from "./components/display";
 import { logicController } from "./components/logic";
-import { storageAvailable } from "./persistence/check-local-storage";
-import { Folder } from "./components/folder-class";
 
 displayController.displayHeader();
 

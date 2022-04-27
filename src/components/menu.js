@@ -1,3 +1,5 @@
+import { detectElms } from "./detect";
+
 const renderMenu = () => {
     const menu = document.createElement("div");
     menu.id = "menu";
@@ -17,6 +19,8 @@ const renderMenu = () => {
     foldersLink.innerText = "Folders";
     foldersTitle.appendChild(foldersLink);
 
+    detectElms.detectHomeButtonClick(foldersTitle);
+
 
     const todayTitle = document.createElement("div");
     todayTitle.id = "today-title";
@@ -33,6 +37,7 @@ const renderMenu = () => {
     todayLink.innerText = "Today";
     todayTitle.appendChild(todayLink);
 
+    detectElms.detectTodaysTasksClick(todayTitle);
 
     const thisWeekTitle = document.createElement("div");
     thisWeekTitle.id = "this-week-title";
@@ -49,6 +54,7 @@ const renderMenu = () => {
     thisWeekLink.innerText = "This Week";
     thisWeekTitle.appendChild(thisWeekLink);
 
+    detectElms.detectWeeksTasksClick(thisWeekTitle);
 
     const allTasksTitle = document.createElement("div");
     allTasksTitle.id = "folders-title";
@@ -64,6 +70,8 @@ const renderMenu = () => {
     allTasksLink.classList.add("menu-title");
     allTasksLink.innerText = "All Tasks";
     allTasksTitle.appendChild(allTasksLink);
+
+    detectElms.detectAllTasksClick(allTasksTitle);
 
     return menu;
 }

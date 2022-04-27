@@ -239,7 +239,7 @@ const renderTaskEditForm = (container, task) => {
         taskContainer.appendChild(input);
     }
 
-    const renderDateSection = (taskContainer) => {
+    const renderDateSection = (info, taskContainer) => {
         const dateLabel = document.createElement("label");
         dateLabel.for = "task-date";
         dateLabel.innerText = "Due Date";
@@ -249,7 +249,7 @@ const renderTaskEditForm = (container, task) => {
         dateInput.type = "date";
         dateInput.name = "task-date";
         dateInput.id = "edit-task-date";
-        dateInput.placeholder = "Due date..";
+        dateInput.value = info; 
         dateInput.min = getMinDueDate();
         taskContainer.appendChild(dateInput);
     }
@@ -300,7 +300,7 @@ const renderTaskEditForm = (container, task) => {
         taskDetails.classList.add("task-details-1");
         
         renderNameSection(info[0], taskDetails);
-        renderDateSection(taskDetails);
+        renderDateSection(info[1], taskDetails);
         renderDescriptionSection(info[2], taskDetails);
         renderPrioritySection(taskDetails);
 

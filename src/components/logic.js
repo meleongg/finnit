@@ -5,6 +5,7 @@ import { validateFns } from "./validate";
 import { Folder } from "./folder-class";
 import { storageAvailable } from "../persistence/check-local-storage";
 import { Task } from "./task-class";
+import { checkWithinWeek, getMinDueDate, stringToDate } from "./date";
 
 const logicController = (() => {
     const defaultFolder = new Folder("Inbox", []);
@@ -26,7 +27,7 @@ const logicController = (() => {
             _folders.push(defaultFolder);
         }
 
-        displayController.displayMainPage(_folders);
+        refreshMainFoldersPage();
     }
     
     const addFolder = (name) => {
@@ -34,7 +35,7 @@ const logicController = (() => {
             let newFolder = new Folder(name, []);
             _folders.push(newFolder);
             updateLocalStorage();
-            displayController.displayMainPage(_folders);
+            refreshMainFoldersPage();
         } else {
             if (validateFns.checkDuplicate(name, _folders)) {
                 resetForm("new-folder-form");
@@ -46,16 +47,16 @@ const logicController = (() => {
                 let newFolder = new Folder(name, []);
                 _folders.push(newFolder);
                 updateLocalStorage();
-                displayController.displayMainPage(_folders);
+                refreshMainFoldersPage();
             }
         }
     }
 
-    const editFolder = (index, folder, newName, oldName) => {
+    const editFolder = (index, newName, oldName) => {
         if (validateFns.checkNoChange(newName, oldName)) {
             _folders[index].name = newName;
             updateLocalStorage();
-            displayController.displayMainPage(_folders);
+            refreshMainFoldersPage();
         } else {
             if (validateFns.checkDuplicate(newName, _folders)) {
                 throwError("Folder already exists!");
@@ -64,18 +65,18 @@ const logicController = (() => {
             } else {
                 _folders[index].name = newName;
                 updateLocalStorage();
-                displayController.displayMainPage(_folders);
+                refreshMainFoldersPage();
             }
         }
     }
 
-    const deleteFolder = (index, folder) => {
+    const deleteFolder = (index) => {
         if (validateFns.checkDefault(index)) {
             throwError(`Cannot delete ${_folders[index].name}!`);
         } else {
             _folders.splice(index, 1);
             updateLocalStorage();
-            displayController.displayMainPage(_folders);
+            refreshMainFoldersPage();
         }
     }
 
@@ -118,6 +119,10 @@ const logicController = (() => {
         displayController.displayFolderPage(folder);
     }
 
+    const refreshMainFoldersPage = () => {
+        displayController.displayMainPage(_folders);
+    }
+
     const getFolders = () => {
         return _folders; 
     }
@@ -154,8 +159,49 @@ const logicController = (() => {
         }
     }
 
+    const getAllTasks = () => {
+        let tasks = [];
+
+        for (let i = 0; i < _folders.length; i++) {
+            for (let j = 0; j < _folders[i].tasks.length; j++) {
+                tasks.push(_folders[i].tasks[j]);
+            }
+        }
+
+        return tasks; 
+    }
+
+    const getTodaysTasks = () => {
+        let tasks = [];
+
+        for (let i = 0; i < _folders.length; i++) {
+            for (let j = 0; j < _folders[i].tasks.length; j++) {
+                if (_folders[i].tasks[j].date === getMinDueDate()) {
+                    tasks.push(_folders[i].tasks[j]);
+                }
+            }
+        }
+
+        return tasks; 
+    }
+
+    const getWeeksTasks = () => {
+        let tasks = [];
+
+        for (let i = 0; i < _folders.length; i++) {
+            for (let j = 0; j < _folders[i].tasks.length; j++) {
+                if (checkWithinWeek(stringToDate(_folders[i].tasks[j].date))) {
+                    tasks.push(_folders[i].tasks[j]);
+                }
+            }
+        }
+
+        return tasks; 
+    }
+
     return { initializeFolders, addFolder, deleteFolder, editFolder, getFolders, 
-             getFolder, refreshFolderPage, getFolderByName, getFolderByTaskName, updateLocalStorage, getTaskByTaskName }
+             getFolder, refreshFolderPage, getFolderByName, getFolderByTaskName, updateLocalStorage, 
+             getTaskByTaskName, refreshMainFoldersPage, getAllTasks, getTodaysTasks, getWeeksTasks }
 })();
 
 export { logicController }

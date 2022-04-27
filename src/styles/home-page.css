@@ -28,7 +28,7 @@ button {
     border: none;
 }
 
-button:hover, a:hover, #menu-toggle-btn:hover {
+button:hover, a:hover, #menu-toggle-btn:hover, #logo-li:hover {
     cursor: pointer;
 }
 
@@ -193,6 +193,10 @@ select, input[type="date"], textarea {
     justify-items: center;
     align-items: center;
     padding: 10px;
+}
+
+.full-width {
+    width: 100% !important;
 }
 
 .act-btns a:not(:last-child) {

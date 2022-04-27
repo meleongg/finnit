@@ -1,5 +1,6 @@
 import LogoFull from "../images/logo-full.png";
 import LogoHalf from "../images/logo-half.png";
+import { detectElms } from "./detect";
 
 const renderHeader = (content) => {
     const header = document.createElement("header");
@@ -18,8 +19,8 @@ const renderHeader = (content) => {
         logoContainer.classList.add("nav-item");
         const logo = new Image();
         logo.src = LogoFull; 
-        // TODO: change logo based on screen size
         logoContainer.appendChild(logo);
+        detectElms.detectHomeButtonClick(logoContainer); 
 
         return logoContainer;
     };

@@ -1,8 +1,11 @@
 import { renderMainPage } from "./main-page";
 import { renderHeader } from "./header";
-import { resetMainPageDetects, resetFolderPageDetects, resetTaskPageDetects } from "./detect";
+import { resetMainPageDetects, resetFolderPageDetects, resetTaskPageDetects, resetAllTasksPageDetects } from "./detect";
 import { renderFolderPage } from "./folder-page";
 import { renderTaskPage } from "./task-page";
+import { renderAllTasks } from "./render-tasks";
+import { renderMenu } from "./menu";
+import { renderHeading } from "./heading";
 
 const displayController = (() => {
     const _content = document.getElementById("content");
@@ -36,8 +39,25 @@ const displayController = (() => {
         renderTaskPage(_content, task);
         resetTaskPageDetects();
     }
+
+    const displayAllTasks = (name, tasks) => {
+        _clear();
+        displayHeader();
+        let menu = renderMenu();
+        _content.appendChild(menu);
+        
+        let heading = renderHeading(name, false);
+        _content.appendChild(heading);
+
+        let opaque = document.createElement("div");
+        opaque.id = "opaque";
+        _content.appendChild(opaque);
+
+        renderAllTasks(_content, tasks);
+        resetAllTasksPageDetects();
+    }
     
-    return { displayHeader, displayMainPage, displayFolderPage, displayTaskPage };
+    return { displayHeader, displayMainPage, displayFolderPage, displayTaskPage, displayAllTasks };
 })();
 
 export { displayController }

@@ -9,7 +9,7 @@ const renderHeading = (type, needAddBtn) => {
     headingTitle.innerText = type;
     heading.appendChild(headingTitle);
 
-    if (type !== "folders") {
+    if (type !== "Folders" && type !== "All Tasks" && type !== "Today's Tasks" && type !== "This Week's Tasks") {
         const backBtn = document.createElement("a")
         backBtn.id = "back-btn";
         backBtn.classList.add("back-btn");
@@ -25,7 +25,7 @@ const renderHeading = (type, needAddBtn) => {
         const addBtn = document.createElement("a");
         addBtn.classList.add("add-btn");
 
-        if (type === "folders") {
+        if (type === "Folders") {
             addBtn.id = `add-folders-btn`;
         } else {
             addBtn.id = `add-task-btn`;

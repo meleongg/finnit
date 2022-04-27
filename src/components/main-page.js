@@ -8,7 +8,7 @@ const renderMainPage = (content, folders) => {
     const menu = renderMenu();
     const opaque = document.createElement("div");
     opaque.id = "opaque";
-    const heading = renderHeading("folders", true);
+    const heading = renderHeading("Folders", true);
     const folderForm = renderFolderForm();
     const foldersResult = renderFolders(folders);
 

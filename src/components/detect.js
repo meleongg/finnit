@@ -71,12 +71,11 @@ const detectElms = (() => {
     }
 
     const detectSaveEditFolder = (btn) => {
-        btn.addEventListener("click", (e) => {
-            let folder = e.target.parentElement;
+        btn.addEventListener("click", () => {
             let index = folder.dataset.index;
             let newName = getEditFolderInfo(folder);
             let oldName = folder.dataset.oldName;
-            logicController.editFolder(index, folder, newName, oldName);
+            logicController.editFolder(index, newName, oldName);
         });
     }
 
@@ -86,7 +85,7 @@ const detectElms = (() => {
             let btnDiv = btnA.parentElement;
             let folder = btnDiv.parentElement;
             let index = folder.dataset.index;
-            logicController.deleteFolder(index, folder);
+            logicController.deleteFolder(index);
         });
     }
 
@@ -251,6 +250,33 @@ const detectElms = (() => {
     }
 
 
+    const detectHomeButtonClick = (btn) => {
+        btn.addEventListener("click", () => {
+            logicController.refreshMainFoldersPage();
+        });
+    }
+
+    const detectAllTasksClick = (btn) => {
+        btn.addEventListener("click", () => {
+            let tasks = logicController.getAllTasks();
+            displayController.displayAllTasks("All Tasks", tasks);
+        });
+    }
+
+    const detectTodaysTasksClick = (btn) => {
+        btn.addEventListener("click", () => {
+            let tasks = logicController.getTodaysTasks();
+            displayController.displayAllTasks("Today's Tasks", tasks);
+        });
+    }
+
+    const detectWeeksTasksClick = (btn) => {
+        btn.addEventListener("click", () => {
+            let tasks = logicController.getWeeksTasks();
+            displayController.displayAllTasks("This Week's Tasks", tasks);
+        });
+    }
+
     return {
         detectMenuClick, detectAddFolder, detectFolderCancelBtn,
         detectFolderSubmitBtn, detectEditFolder, detectDeleteFolder,
@@ -258,7 +284,8 @@ const detectElms = (() => {
         detectBackFolderBtn, detectAddTask, detectTaskCancelBtn, 
         detectTaskSubmitBtn, detectDeleteTask, detectTaskCheckbox, 
         detectTaskClick, detectExitTask, detectEditTask,
-        detectCancelEditTask, detectSaveEditTask
+        detectCancelEditTask, detectSaveEditTask, detectHomeButtonClick,
+        detectAllTasksClick, detectTodaysTasksClick, detectWeeksTasksClick
     }
 })();
 
@@ -280,4 +307,8 @@ const resetTaskPageDetects = () => {
     detectElms.detectBackFolderBtn();
 }
 
-export { detectElms, resetMainPageDetects, resetFolderPageDetects, resetTaskPageDetects}
+const resetAllTasksPageDetects = () => {
+    detectElms.detectMenuClick();
+}
+
+export { detectElms, resetMainPageDetects, resetFolderPageDetects, resetTaskPageDetects, resetAllTasksPageDetects}
